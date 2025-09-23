@@ -1,0 +1,11 @@
+{% set allowedTags = [
+    "div",
+    "span"
+] %}
+{% if text.tag in allowedTags %}
+    <{{ text.tag }} class="{{ text.class }}">
+        {{ text.text | safe }}
+    </{{ text.tag }}>
+{% else %}
+    <div class="{{ text.class }}">{{ text.text }}</div>
+{% endif %}

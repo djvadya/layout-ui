@@ -1,0 +1,46 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    height: var(--header-height);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+
+    .container {
+        display: flex;
+        height: 100%;
+    }
+
+    .row {
+        display: flex;
+        gap: 0 3rem;
+        width: 100%;
+
+        .header-logo {
+            display: flex;
+            align-self: center;
+        }
+
+        .header-navigation {
+            display: flex;
+            align-self: center;
+
+            @include bp.mq(tablet) {
+                display: none;
+            }
+        }
+
+        .header-mobile-menu {
+            display: none;
+
+            @include bp.mq(tablet) {
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.copyright {
+    color: var(--color-text-2);
+    font-size: 0.875rem;
+}

@@ -1,0 +1,25 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--color-bg-2);
+    backdrop-filter: blur(8px);
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+    color: var(--color-text-3);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: var(--transition-bg);
+
+    &:hover {
+        background: var(--color-bg-3);
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,36 @@
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="header-logo">
+                {% include "components/common/logo/logo.njk" %}
+            </div>
+            <div class="header-navigation">
+                {% set items = [
+                    {
+                        title: "Components",
+                        href: "components.html",
+                        class: ""
+                    }, {
+                        title: "Blocks",
+                        href: "blocks.html",
+                        class: ""
+                    }, {
+                        title: "Docs",
+                        href: "docs.html",
+                        class: ""
+                    }, {
+                        title: "Simple Page",
+                        href: "simple.html",
+                        class: ""
+                    }, {
+                        title: "Error 404",
+                        href: "error-404.html",
+                        class: ""
+                    }
+                ] %}
+                {% include "components/general/navigation-top/navigation-top.njk" %}
+            </div>
+            <div class="header-mobile-menu"></div>
+        </div>
+    </div>
+</header>

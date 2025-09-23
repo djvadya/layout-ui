@@ -1,0 +1,32 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.breadcrumbs {
+    width: 100%;
+    margin-bottom: 2.5rem;
+
+    ul {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: inline;
+            font-size: 0.75rem;
+
+            a {
+                display: inline-flex;
+                color: var(--color-link-2);
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            > span {
+                color: var(--color-text-2);
+            }
+        }
+    }
+}

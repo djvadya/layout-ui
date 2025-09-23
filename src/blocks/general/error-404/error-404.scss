@@ -1,0 +1,15 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.error-404 {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .block {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

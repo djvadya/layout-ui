@@ -1,0 +1,26 @@
+<section class="hero section">
+    <div class="container">
+        <div class="block">
+            {% set title = {
+                text: "UI Library for layout",
+                tag: "h1",
+                class: "title center"
+            } %}
+            {% include "components/general/title/title.njk" %}
+            {% set text = {
+                text: "Collection of UI components and blocks built with <strong>JavaScript</strong>, <strong>Sass</strong>, <strong>Nunjacks</strong>, and <strong>Gulp</strong>.",
+                tag: "div",
+                class: "text center"
+            } %}
+            {% include "components/general/text/text.njk" %}
+            {% set button = {
+                text: "Get Started",
+                href: "docs.html",
+                class: "button",
+                type: "link"
+            } %}
+            {% include "components/general/button/button.njk" %}
+            {% include "components/common/stack/stack.njk" %}
+        </div>
+    </div>
+</section>

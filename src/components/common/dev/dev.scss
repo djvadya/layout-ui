@@ -1,0 +1,16 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.dev {
+    color: var(--color-text-2);
+    font-size: 0.875rem;
+
+    a {
+        font-weight: 600;
+        color: var(--color-text);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

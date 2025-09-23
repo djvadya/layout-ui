@@ -1,0 +1,11 @@
+<nav class="navigation-top">
+    <ul>
+        {% for item in items %}
+            <li class="{{ item.class | default('') }}">
+                <a href="{{ item.href }}">
+                    {{ item.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

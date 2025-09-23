@@ -1,0 +1,35 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.navigation-top {
+    > ul {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        > li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            > a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--color-link);
+                font-weight: 600;
+                line-height: 1;
+                white-space: nowrap;
+
+                &:hover {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+:root {
+    //--------------------------------------
+    //-- Base Сolors
+    //--------------------------------------
+    --color-white: #fff;
+    --color-black: #000;
+    --color-red: #f04f36;
+    --color-green: #3fa802;
+
+    //--------------------------------------
+    //-- Brand Сolors
+    //--------------------------------------
+    --color-primary: #005694;
+
+    //--------------------------------------
+    //-- UI Сolors
+    //--------------------------------------
+    --color-text: rgba(255, 255, 255, 0.9);
+    --color-text-2: rgba(214, 214, 214, 0.95);
+    --color-text-3: rgba(24, 22, 22, 0.949);
+    --color-link: rgba(255, 255, 255, 0.75);
+    --color-link-2: rgba(255, 255, 255, 0.95);
+    --color-bg: rgba(24, 22, 22, 0.949);
+    --color-bg-2: rgba(255, 255, 255, 0.9);
+    --color-bg-3: rgba(255, 255, 255, 0.8);
+    --color-border: rgba(99, 99, 99, 0.255);
+    --swiper-theme-color: var(--color-primary);
+
+    --border-radius: 6px;
+
+    --transition-link: color 0.3s;
+    --transition-bg: background 0.3s;
+    --transition-opacity: opacity 0.3s;
+
+    //--------------------------------------
+    //-- Fonts
+    //--------------------------------------
+    --font-family-primary: "Inter", sans-serif;
+
+    //--------------------------------------
+    //-- Sizes
+    //--------------------------------------
+    --header-height: 90px;
+
+    --container-width: 1440px;
+    --container-padding: 1rem;
+
+    --heading-margin: 1rem 0;
+    --heading-line-height: 1.1;
+
+    @include bp.mq(tablet) {
+        --header-height: 80px;
+    }
+}

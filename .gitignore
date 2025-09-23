@@ -1,0 +1,11 @@
+.git/
+.vscode/
+.tmp/
+.temp/
+package-lock.json
+
+node_modules/
+build/
+dist/
+temp/
+tmp/

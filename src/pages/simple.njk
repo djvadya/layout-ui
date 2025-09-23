@@ -1,0 +1,20 @@
+{% set meta = {
+    title: "Simple"
+} %}
+{% set breadcrumbs = [
+    {
+        title: "Home",
+        href: "home.html"
+    }, {
+        title: "Simple"
+    }
+] %}
+{% set title = {
+    text: 'Simple Page',
+    tag: 'h1',
+    class: 'title'
+} %}
+{% extends "layouts/default.njk" %}
+{% block content %}
+    {% include "blocks/general/section/section.njk" %}
+{% endblock %}

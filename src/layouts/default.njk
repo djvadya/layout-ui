@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include "blocks/general/meta/meta.njk" %}
+        <link rel="stylesheet" href="./css/bundle.css"/>
+    </head>
+    <body>
+        <div class="site">
+            {% include "blocks/general/header/header.njk" %}
+            <main class="main">
+                {% if not meta.is_home %}
+                    {% if not meta.is_404 %}
+                        {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+                    {% endif %}
+                    {% if title %}
+                        {% include "components/general/heading/heading.njk" %}
+                    {% endif %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </main>
+            {% include "blocks/general/footer/footer.njk" %}
+        </div>
+        <script src="./js/bundle.js"></script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+{% if button.type == "link" %}
+    <a
+        {% if button.class %}class="{{ button.class }}"{% endif %}
+        {% if button.id %}id="{{ button.id }}"{% endif %}
+        {% if button.href %}href="{{ button.href }}"{% endif %}
+        {% if button.target %}target="{{ button.target }}"{% endif %}
+        {% if button.rel %}rel="{{ button.rel }}"{% endif %}
+        {% if button.ariaLabel %}aria-label="{{ button.ariaLabel }}"{% endif %}
+    >
+        {{ button.text }}
+    </a>
+{% else %}
+    <button
+        {% if button.class %}class="{{ button.class }}"{% endif %}
+        {% if button.id %}id="{{ button.id }}"{% endif %}
+        {% if button.type and button.type != "link" %}type="{{ button.type }}"{% endif %}
+        {% if button.name %}name="{{ button.name }}"{% endif %}
+        {% if button.value %}value="{{ button.value }}"{% endif %}
+        {% if button.disabled %}disabled{% endif %}
+        {% if button.ariaLabel %}aria-label="{{ button.ariaLabel }}"{% endif %}
+    >
+        {{ button.text }}
+    </button>
+{% endif %}

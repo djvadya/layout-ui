@@ -1,0 +1,18 @@
+<section class="error-404 section">
+    <div class="container">
+        <div class="block">
+            {% set title = {
+                text: "Page not found",
+                tag: "h1",
+                class: "title center"
+            } %}
+            {% include "components/general/title/title.njk" %}
+            {% set text = {
+                text: "Go back to <a href=\"home.html\">Home page</a>",
+                tag: "div",
+                class: "text center"
+            } %}
+            {% include "components/general/text/text.njk" %}
+        </div>
+    </div>
+</section>
