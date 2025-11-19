@@ -58,6 +58,20 @@ This will:
 - Output production-ready files to the `build/` folder
 - Remove sourcemaps and comments
 
+### Code Quality
+
+```sh
+npm run lint
+```
+
+Check JavaScript code for errors and style issues with ESLint.
+
+```sh
+npm run lint:fix
+```
+
+Automatically fix auto-fixable linting issues.
+
 ## Project Structure
 
 ```
@@ -113,6 +127,7 @@ component-name/
 - **[esbuild](https://esbuild.github.io/)** - Ultra-fast JavaScript bundler
 - **[Gulp](https://gulpjs.com/)** - Task runner and build system
 - **[BrowserSync](https://browsersync.io/)** - Live reloading and synchronized testing
+- **[ESLint](https://eslint.org/)** - JavaScript linter for code quality and consistency
 
 ### Included Libraries
 

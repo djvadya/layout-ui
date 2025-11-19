@@ -30,6 +30,17 @@ gulp clean
 ```
 Removes both `temp/` and `build/` folders.
 
+### Lint Code
+```sh
+npm run lint
+```
+Runs ESLint to check JavaScript code for errors and style issues.
+
+```sh
+npm run lint:fix
+```
+Automatically fixes auto-fixable ESLint issues.
+
 ## Architecture
 
 ### Build System (gulpfile.js)
@@ -108,6 +119,24 @@ The Sass compiler uses `includePaths` to resolve imports from:
 Component JS files export initialization functions imported in `init.js`.
 
 esbuild bundles everything into a single IIFE bundle for the browser.
+
+### Code Quality (ESLint)
+
+**Configuration**: `eslint.config.js` (ESLint 9+ flat config format)
+
+ESLint is configured with:
+- ES modules support (`sourceType: "module"`)
+- Browser and Node.js globals
+- Recommended JavaScript rules
+- Custom stylistic rules (4-space indentation, double quotes, semicolons)
+- Auto-ignore patterns for `node_modules/`, `temp/`, `build/`, and `*.min.js`
+
+Key rules enforced:
+- `no-var` - Must use `let`/`const` instead of `var`
+- `prefer-const` - Use `const` for variables that are never reassigned
+- `indent: 4` - 4-space indentation
+- `quotes: "double"` - Double quotes for strings
+- `semi: "always"` - Always use semicolons
 
 ## Common Libraries
 

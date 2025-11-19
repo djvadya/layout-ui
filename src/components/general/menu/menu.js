@@ -8,7 +8,7 @@ export function initMenu() {
     const closeDropdown = () => {
         menuToggles.forEach((btn) => btn.classList.remove("is-active"));
         menuDropdown.classList.remove("is-open");
-        body.classList.remove("is-fixed")
+        body.classList.remove("is-fixed");
     };
 
     const toggleDropdown = (event) => {

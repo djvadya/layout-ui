@@ -61,7 +61,7 @@ export const styles = () =>
         .pipe(
             sassCompiler({
                 includePaths: ["src/blocks", "src/components", "src/scss/core"],
-            }).on("error", sassCompiler.logError)
+            }).on("error", sassCompiler.logError),
         )
         .pipe(rename("bundle.css"))
         .pipe(sourcemaps.write("."))
@@ -75,7 +75,7 @@ export const stylesProd = () =>
         .pipe(
             sassCompiler({
                 includePaths: ["src/blocks", "src/components", "src/scss/core"],
-            }).on("error", sassCompiler.logError)
+            }).on("error", sassCompiler.logError),
         )
         .pipe(postcss([autoprefixer(), cssnano({ preset: "default" })]))
         .pipe(rename("bundle.min.css"))
@@ -97,7 +97,7 @@ export const scripts = () =>
             }).on("error", function (err) {
                 console.error("esbuild error:", err);
                 this.emit("end");
-            })
+            }),
         )
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(`${paths.devDist}/js`))
@@ -119,7 +119,7 @@ export const scriptsProd = () =>
             }).on("error", function (err) {
                 console.error("esbuild error:", err);
                 this.emit("end");
-            })
+            }),
         )
         .pipe(gulp.dest(`${paths.prodDist}/js`));
 
@@ -134,7 +134,7 @@ export const assetsProd = () =>
             imagemin([
                 mozjpeg({ quality: 75, progressive: true }),
                 pngquant({ quality: [0.6, 0.8] }),
-            ])
+            ]),
         )
         .pipe(gulp.dest(`${paths.prodDist}/assets`));
 

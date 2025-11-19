@@ -4,12 +4,16 @@
   "version": "1.0.0",
   "scripts": {
     "start": "gulp",
-    "build": "gulp build"
+    "build": "gulp build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",
     "cssnano": "^7.1.2",
     "del": "^8.0.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
     "gulp": "^5.0.1",
     "gulp-autoprefixer": "^10.0.0",
     "gulp-esbuild": "^0.14.1",
