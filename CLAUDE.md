@@ -34,12 +34,27 @@ Removes both `temp/` and `build/` folders.
 ```sh
 npm run lint
 ```
-Runs ESLint to check JavaScript code for errors and style issues.
+Runs both ESLint (JavaScript) and Stylelint (SCSS) checks.
 
 ```sh
-npm run lint:fix
+npm run lint:js
 ```
-Automatically fixes auto-fixable ESLint issues.
+Check JavaScript files with ESLint.
+
+```sh
+npm run lint:js:fix
+```
+Auto-fix JavaScript linting issues.
+
+```sh
+npm run lint:scss
+```
+Check SCSS files with Stylelint.
+
+```sh
+npm run lint:scss:fix
+```
+Auto-fix SCSS linting issues.
 
 ## Architecture
 
@@ -120,7 +135,9 @@ Component JS files export initialization functions imported in `init.js`.
 
 esbuild bundles everything into a single IIFE bundle for the browser.
 
-### Code Quality (ESLint)
+### Code Quality
+
+#### ESLint (JavaScript)
 
 **Configuration**: `eslint.config.js` (ESLint 9+ flat config format)
 
@@ -137,6 +154,27 @@ Key rules enforced:
 - `indent: 4` - 4-space indentation
 - `quotes: "double"` - Double quotes for strings
 - `semi: "always"` - Always use semicolons
+
+#### Stylelint (SCSS/CSS)
+
+**Configuration**: `.stylelintrc.json`
+
+Stylelint is configured with:
+- `stylelint-config-standard-scss` - Standard SCSS rules
+- `stylelint-config-recess-order` - Automatic CSS property ordering (similar to Bootstrap's style)
+- Auto-ignore patterns for `node_modules/`, `temp/`, `build/`, and `*.min.css`
+
+Features:
+- SCSS syntax validation
+- Automatic property ordering (position → display → box-model → typography → visual → etc.)
+- Detection of duplicate selectors and invalid rules
+- Color, unit, and value validation
+- Auto-fix support for most formatting issues
+
+Key rules disabled for flexibility:
+- `selector-class-pattern` - No BEM enforcement
+- `scss/dollar-variable-pattern` - No variable naming restrictions
+- `no-descending-specificity` - Allows flexible specificity
 
 ## Common Libraries
 

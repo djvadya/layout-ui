@@ -5,8 +5,11 @@
   "scripts": {
     "start": "gulp",
     "build": "gulp build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "npm run lint:js && npm run lint:scss",
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint . --fix",
+    "lint:scss": "stylelint \"src/**/*.scss\"",
+    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",
@@ -26,7 +29,12 @@
     "gulp-sourcemaps": "^3.0.0",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
-    "sass": "^1.94.1"
+    "postcss": "^8.5.6",
+    "sass": "^1.94.1",
+    "stylelint": "^16.25.0",
+    "stylelint-config-recess-order": "^7.4.0",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "stylelint-order": "^7.0.0"
   },
   "dependencies": {
     "@fancyapps/ui": "^6.1.6",

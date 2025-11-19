@@ -4,11 +4,11 @@
 .navigation-top {
     > ul {
         display: flex;
-        align-items: center;
         gap: 2rem;
+        align-items: center;
         width: 100%;
-        margin: 0;
         padding: 0;
+        margin: 0;
         list-style: none;
 
         > li {
@@ -19,11 +19,11 @@
 
             > a {
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                color: var(--color-black);
+                justify-content: center;
                 font-weight: 600;
                 line-height: 1;
+                color: var(--color-black);
                 white-space: nowrap;
 
                 &:hover {

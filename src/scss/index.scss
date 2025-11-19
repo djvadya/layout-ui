@@ -1,6 +1,6 @@
-//--------------------------------------
-//-- Libs
-//--------------------------------------
+// --------------------------------------
+// -- Libs
+// --------------------------------------
 @use "../../node_modules/swiper/swiper.css" as swiper;
 @use "../../node_modules/swiper/modules/navigation.css" as swiperNavigation;
 @use "../../node_modules/swiper/modules/pagination.css" as swiperPagination;
@@ -8,18 +8,18 @@
 @use "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css" as fancybox;
 @use "../../node_modules/nice-select2/dist/css/nice-select2.css" as niceSelect2;
 
-//--------------------------------------
-//-- Core
-//--------------------------------------
+// --------------------------------------
+// -- Core
+// --------------------------------------
 @use "./core/variables";
 @use "./core/fonts";
 @use "./core/animations";
 @use "./core/mixins";
 @use "./core/globals";
 
-//--------------------------------------
-//-- Components
-//--------------------------------------
+// --------------------------------------
+// -- Components
+// --------------------------------------
 @use "../components/general/title/title";
 @use "../components/general/text/text";
 @use "../components/general/heading/heading";
@@ -34,9 +34,9 @@
 @use "../components/common/dev/dev";
 @use "../components/common/stack/stack";
 
-//--------------------------------------
-//-- Blocks
-//--------------------------------------
+// --------------------------------------
+// -- Blocks
+// --------------------------------------
 @use "../blocks/general/header/header";
 @use "../blocks/general/footer/footer";
 @use "../blocks/general/sidebar/sidebar";

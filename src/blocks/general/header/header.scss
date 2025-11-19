@@ -3,12 +3,12 @@
 
 .header {
     position: sticky;
-    z-index: 100;
     top: 0;
+    z-index: 100;
     height: var(--header-height);
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(4px);
+    background: rgb(255 255 255 / 90%);
     border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(4px);
 
     .container {
         display: flex;

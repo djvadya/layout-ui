@@ -64,13 +64,17 @@ This will:
 npm run lint
 ```
 
-Check JavaScript code for errors and style issues with ESLint.
+Check both JavaScript (ESLint) and SCSS (Stylelint) for errors and style issues.
+
+**Individual checks:**
 
 ```sh
-npm run lint:fix
-```
+npm run lint:js          # Check JavaScript
+npm run lint:js:fix      # Auto-fix JavaScript
 
-Automatically fix auto-fixable linting issues.
+npm run lint:scss        # Check SCSS
+npm run lint:scss:fix    # Auto-fix SCSS
+```
 
 ## Project Structure
 
@@ -128,6 +132,7 @@ component-name/
 - **[Gulp](https://gulpjs.com/)** - Task runner and build system
 - **[BrowserSync](https://browsersync.io/)** - Live reloading and synchronized testing
 - **[ESLint](https://eslint.org/)** - JavaScript linter for code quality and consistency
+- **[Stylelint](https://stylelint.io/)** - SCSS/CSS linter with automatic property ordering
 
 ### Included Libraries
 
