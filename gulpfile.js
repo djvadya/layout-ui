@@ -26,17 +26,17 @@ const paths = {
     js: "src/js/index.js",
     componentJS: ["src/blocks/**/*.js", "src/components/**/*.js", "src/js/core/*.js"],
     assets: "src/assets/**/*",
-    devDist: "tmp",
+    devDist: "temp",
     prodDist: "build",
 };
 
-// Очистка папок tmp/ и build/
+// Очистка папок temp/ и build/
 export const clean = (done) => {
     deleteSync([paths.devDist, paths.prodDist]);
     done();
 };
 
-// HTML для разработки (пишет в tmp/)
+// HTML для разработки (пишет в temp/)
 export const html = () =>
     gulp
         .src(paths.html)
@@ -53,7 +53,7 @@ export const htmlProd = () =>
         .pipe(replace("bundle.js", "bundle.min.js"))
         .pipe(gulp.dest(paths.prodDist));
 
-// Стили для разработки (пишет в tmp/css/bundle.css с sourcemaps)
+// Стили для разработки (пишет в temp/css/bundle.css с sourcemaps)
 export const styles = () =>
     gulp
         .src(paths.styles)
@@ -81,7 +81,7 @@ export const stylesProd = () =>
         .pipe(rename("bundle.min.css"))
         .pipe(gulp.dest(`${paths.prodDist}/css`));
 
-// Скрипты для разработки (пишет в tmp/js/bundle.js с sourcemaps, без минификации)
+// Скрипты для разработки (пишет в temp/js/bundle.js с sourcemaps, без минификации)
 export const scripts = () =>
     gulp
         .src(paths.js, { allowEmpty: true })
@@ -138,7 +138,7 @@ export const assetsProd = () =>
         )
         .pipe(gulp.dest(`${paths.prodDist}/assets`));
 
-// Сервер для разработки (использует tmp/)
+// Сервер для разработки (использует temp/)
 export const serve = () => {
     bs.init({
         server: {
