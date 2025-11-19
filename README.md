@@ -1,120 +1,175 @@
-# Project
+# Layout UI
 
-## Navigation
+Modern static site generator built with Gulp, Nunjucks, and SCSS. Features a component-based architecture for building responsive web layouts with live reload and optimized production builds.
 
-1. [Installation](#installation)
-2. [Development](#development)
-3. [File Structure](#file-structure)
-4. [Features](#features)
+## Features
+
+- 🎨 **Component-Based Architecture** - Modular blocks and components for reusable UI elements
+- 🔄 **Live Reload** - BrowserSync with automatic browser refresh on file changes
+- 📱 **Responsive Design** - Mobile-first approach with flexible grid system
+- ⚡ **Fast Builds** - esbuild for lightning-fast JavaScript bundling
+- 🎯 **Template Engine** - Nunjucks for powerful HTML templating
+- 🌈 **Modern CSS** - SCSS with autoprefixer and modular imports
+- 🖼️ **Image Optimization** - Automatic image compression for production
+- 📦 **Production Ready** - Minified and optimized assets for deployment
 
 ## Installation
 
-You need to have [Node.js](https://nodejs.org/ "Node.js") and package manager [NPM](https://www.npmjs.com/ "NPM") installed.
+### Prerequisites
 
-Install all dependencies in the project directory:
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [NPM](https://www.npmjs.com/) or other package manager
+
+### Setup
+
+Install dependencies:
 
 ```sh
-npm i
+npm install
 ```
 
 ## Development
 
-To start the local dev server, open terminal in the root directory and run:
+### Start Development Server
 
 ```sh
+npm start
+# or
 gulp
 ```
 
-After that, a new tab with the root page will automatically open in the browser and file change tracking processes will start. Compiled files during development are stored in the _tmp_ folder.
+This will:
+- Compile all assets to the `temp/` folder
+- Start BrowserSync server at `http://localhost:3000`
+- Watch for file changes and auto-reload the browser
+- Generate sourcemaps for debugging
 
-To build the project and prepare for deployment:
+### Build for Production
 
 ```sh
+npm run build
+# or
 gulp build
 ```
 
-Compiled files will be in the _build_ folder.
+This will:
+- Compile and minify CSS/JavaScript
+- Optimize images (JPEG/PNG compression)
+- Output production-ready files to the `build/` folder
+- Remove sourcemaps and comments
 
-## File Structure
+## Project Structure
 
 ```
-project/
-├── src/
-│   ├── assets/
+layout-ui/
+├── src/                          # Source files
+│   ├── assets/                   # Static assets
 │   │   ├── favicons/
 │   │   ├── fonts/
 │   │   └── images/
-│   ├── blocks/
-│   │   ├── common/
-│   │   │   └── hero/
-│   │   │       ├── hero.js
-│   │   │       ├── hero.scss
-│   │   │       └── hero.njk
-│   │   └── general/
-│   │       ├── header/
-│   │       │   ├── header.js
-│   │       │   ├── header.scss
-│   │       │   └── header.njk
-│   │       └── footer/
-│   │           ├── footer.js
-│   │           ├── footer.scss
-│   │           └── footer.njk
-│   ├── components/
-│   │   ├── common/
-│   │   │   └── copyright/
-│   │   │       ├── copyright.js
-│   │   │       ├── copyright.scss
-│   │   │       └── copyright.njk
-│   │   └── general/
-│   │       ├── button/
-│   │       │   ├── button.js
-│   │       │   ├── button.scss
-│   │       │   └── button.njk
-│   │       └── title/
-│   │           ├── title.js
-│   │           ├── title.scss
-│   │           └── title.njk
-│   ├── layouts/
-│   │   ├── default.njk
-│   │   └── grid.njk
-│   ├── pages/
-│   │   ├── index.njk                        # Project navigation
-│   │   └── home.njk
-│   ├── scss/
-│   │   ├── core/
-│   │   │   ├── animations.scss
-│   │   │   ├── breakpoints.scss
-│   │   │   ├── fonts.scss
-│   │   │   ├── globals.scss
-│   │   │   ├── mixins.scss
-│   │   │   └── variables.scss
-│   │   └── index.scss                       # SCSS entry point
-│   └── js/
-│       ├── core/
-│       │   ├── init.js
-│       │   └── handlers.js
-│       └── index.js                         # JavaScript entry point
-├── .gitignore
-├── gulpfile.js
+│   ├── blocks/                   # Large structural sections
+│   │   ├── common/               # Page-specific blocks
+│   │   └── general/              # Reusable blocks (header, footer, etc.)
+│   ├── components/               # Small reusable UI elements
+│   │   ├── common/               # Unique components (logo, copyright)
+│   │   └── general/              # Reusable components (button, menu)
+│   ├── layouts/                  # Nunjucks layout templates
+│   │   ├── default.njk           # Main layout
+│   │   └── grid.njk              # Grid layout variant
+│   ├── pages/                    # Page templates (each becomes .html)
+│   │   ├── index.njk             # Project navigation
+│   │   └── home.njk              # Homepage
+│   ├── scss/                     # Stylesheets
+│   │   ├── core/                 # Variables, mixins, globals
+│   │   └── index.scss            # Main SCSS entry point
+│   └── js/                       # JavaScript
+│       ├── core/                 # Core initialization
+│       └── index.js              # Main JS entry point
+├── temp/                         # Development build output (auto-generated)
+├── build/                        # Production build output (auto-generated)
+├── gulpfile.js                   # Build configuration
 ├── package.json
+├── CLAUDE.md                     # AI coding assistant guidance
 └── README.md
 ```
 
-## Features
+### Component Structure
 
--   Uses [Nunjucks](https://mozilla.github.io/nunjucks/ "Nunjucks") templating engine for pages and components;
--   [SCSS](https://sass-lang.com/ "SCSS") with autoprefixer and modular architecture;
--   JavaScript is bundled with [esbuild](https://www.npmjs.com/package/esbuild "esbuild").
+Each component/block follows this pattern:
 
-## Additional Tools
+```
+component-name/
+├── component-name.njk            # Template
+├── component-name.scss           # Styles
+└── component-name.js             # Logic (optional)
+```
 
-[VS Code Extension](https://marketplace.visualstudio.com/items?itemName=douglaszaltron.nunjucks-vscode-extensionpack "Extension") — Formatting, Syntax Highlighting, Hover, and Snippets for Nunjucks.
+## Technology Stack
 
-Commonly used plugins:
+### Core Technologies
 
--   [Fancyapps UI](https://fancyapps.com/ "Fancyapps UI") — lightbox gallery;
--   [GSAP](https://gsap.com/ "GSAP") — animations;
--   [Inputmask](https://robinherbots.github.io/Inputmask/ "Inputmask") — input masking;
--   [Swiper](https://swiperjs.com/ "Swiper") — slider;
--   [Lozad.js](https://apoorv.pro/lozad.js/ "Lozad.js") — lazy loading for images;
--   [Nice Select 2](https://bluzky.github.io/nice-select2/ "Nice Select 2") — select styling.
+- **[Nunjucks](https://mozilla.github.io/nunjucks/)** - Powerful templating engine with inheritance and macros
+- **[SCSS](https://sass-lang.com/)** - CSS preprocessor with variables, mixins, and nesting
+- **[esbuild](https://esbuild.github.io/)** - Ultra-fast JavaScript bundler
+- **[Gulp](https://gulpjs.com/)** - Task runner and build system
+- **[BrowserSync](https://browsersync.io/)** - Live reloading and synchronized testing
+
+### Included Libraries
+
+- **[Swiper](https://swiperjs.com/)** - Modern mobile-friendly slider
+- **[GSAP](https://gsap.com/)** - Professional-grade animation library
+- **[Fancyapps UI](https://fancyapps.com/)** - Lightbox and gallery component
+- **[Lozad.js](https://apoorv.pro/lozad.js/)** - Lazy loading for images (use `.lazy` class)
+- **[Inputmask](https://robinherbots.github.io/Inputmask/)** - Input field masking
+- **[Nice Select 2](https://bluzky.github.io/nice-select2/)** - Custom select dropdown styling
+
+## Development Workflow
+
+### Creating a New Component
+
+1. Create component folder in `src/components/general/` or `src/blocks/general/`
+2. Add `.njk`, `.scss`, and `.js` files (if needed)
+3. Import styles in `src/scss/index.scss`:
+   ```scss
+   @use "../components/general/your-component/your-component";
+   ```
+4. If component needs initialization, export function and import in `src/js/core/init.js`:
+   ```javascript
+   import { initYourComponent } from "../../components/general/your-component/your-component.js";
+
+   document.addEventListener("DOMContentLoaded", () => {
+       initYourComponent();
+   });
+   ```
+5. Include in templates:
+   ```nunjucks
+   {% include "components/general/your-component/your-component.njk" %}
+   ```
+
+### Creating a New Page
+
+1. Create `.njk` file in `src/pages/`
+2. Extend a layout:
+   ```nunjucks
+   {% extends "layouts/default.njk" %}
+
+   {% block content %}
+       <!-- Your page content -->
+   {% endblock %}
+   ```
+3. The page will be compiled to HTML in the output folder
+
+## Recommended Tools
+
+- **[Nunjucks VS Code Extension](https://marketplace.visualstudio.com/items?itemName=douglaszaltron.nunjucks-vscode-extensionpack)** - Syntax highlighting, formatting, and snippets
+
+## Browser Support
+
+Configured via `browserslist` in `package.json`:
+- \> 1% market share
+- Last 10 versions of major browsers
+- Excludes dead browsers
+
+## License
+
+This project is available for use under your preferred license.
