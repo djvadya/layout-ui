@@ -17,15 +17,6 @@
 
             a {
                 display: inline-flex;
-                color: var(--color-link-2);
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-
-            > span {
-                color: var(--color-text-2);
             }
         }
     }

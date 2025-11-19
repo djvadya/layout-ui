@@ -94,7 +94,7 @@ export const scripts = () =>
                 platform: "browser",
                 minify: false,
                 sourcemap: true,
-            }).on("error", (err) => {
+            }).on("error", function (err) {
                 console.error("esbuild error:", err);
                 this.emit("end");
             })
@@ -116,7 +116,7 @@ export const scriptsProd = () =>
                 minify: true,
                 sourcemap: false,
                 legalComments: "none",
-            }).on("error", (err) => {
+            }).on("error", function (err) {
                 console.error("esbuild error:", err);
                 this.emit("end");
             })

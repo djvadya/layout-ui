@@ -16,9 +16,8 @@ body {
     height: auto;
     min-height: 100vh;
     margin: 0;
-    background: #0f2027;
-    background: linear-gradient(205deg, #464545, #312e2e, #181616);
-    color: var(--color-text);
+    background: var(--color-white);
+    color: var(--color-black);
     font-family: var(--font-family-primary);
     line-height: 1.4;
     text-rendering: optimizeLegibility;
@@ -33,7 +32,7 @@ body {
     }
 
     *::-webkit-scrollbar-thumb {
-        background: var(--color-primary);
+        background: var(--color-black);
         border-radius: 0.25rem;
     }
 
@@ -63,9 +62,8 @@ textarea {
 }
 
 a {
-    color: var(--color-link-2);
+    color: var(--color-black);
     text-decoration: none;
-    transition: var(--transition-link);
 
     &:hover {
         text-decoration: underline;
@@ -156,7 +154,7 @@ h6 {
         transform: translate(-50%, -50%);
         width: 1rem;
         height: 1rem;
-        border: 0.175rem solid var(--color-text);
+        border: 0.175rem solid var(--color-black);
         border-bottom-color: transparent;
         border-radius: 50%;
         display: inline-block;

@@ -21,13 +21,13 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: var(--color-link);
+                color: var(--color-black);
                 font-weight: 600;
                 line-height: 1;
                 white-space: nowrap;
 
                 &:hover {
-                    color: var(--color-white);
+                    text-decoration: underline;
                 }
             }
         }
