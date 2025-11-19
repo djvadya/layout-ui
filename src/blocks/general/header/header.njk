@@ -8,29 +8,26 @@
                 {% set items = [
                     {
                         title: "Components",
-                        href: "components.html",
-                        class: ""
+                        href: "components.html"
                     }, {
                         title: "Blocks",
-                        href: "blocks.html",
-                        class: ""
+                        href: "blocks.html"
                     }, {
                         title: "Docs",
-                        href: "docs.html",
-                        class: ""
+                        href: "docs.html"
                     }, {
                         title: "Simple Page",
-                        href: "simple.html",
-                        class: ""
+                        href: "simple.html"
                     }, {
                         title: "Error 404",
-                        href: "error-404.html",
-                        class: ""
+                        href: "error-404.html"
                     }
                 ] %}
                 {% include "components/general/navigation-top/navigation-top.njk" %}
             </div>
-            <div class="header-mobile-menu"></div>
+            <div class="header-mobile-menu">
+                {% include "components/general/menu/menu-open.njk" %}
+            </div>
         </div>
     </div>
 </header>

@@ -22,10 +22,12 @@
 //--------------------------------------
 @use "../components/general/title/title";
 @use "../components/general/text/text";
-@use "../components/general/button/button";
-@use "../components/general/navigation-top/navigation-top";
-@use "../components/general/breadcrumbs/breadcrumbs";
 @use "../components/general/heading/heading";
+@use "../components/general/button/button";
+@use "../components/general/menu/menu";
+@use "../components/general/navigation-top/navigation-top";
+@use "../components/general/navigation-mobile/navigation-mobile";
+@use "../components/general/breadcrumbs/breadcrumbs";
 
 @use "../components/common/logo/logo";
 @use "../components/common/copyright/copyright";

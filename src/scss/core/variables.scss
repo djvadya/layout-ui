@@ -39,6 +39,6 @@
     --heading-line-height: 1.1;
 
     @include bp.mq(tablet) {
-        --header-height: 80px;
+        --header-height: 70px;
     }
 }

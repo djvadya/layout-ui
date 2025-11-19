@@ -1,4 +1,5 @@
 import lozad from "lozad";
+import { initMenu } from "../../components/general/menu/menu.js";
 
 // init lozad
 const observerLaze = lozad(".lazy", {
@@ -7,3 +8,8 @@ const observerLaze = lozad(".lazy", {
     enableAutoReload: true,
 });
 observerLaze.observe();
+
+// init components
+document.addEventListener("DOMContentLoaded", () => {
+    initMenu();
+});
