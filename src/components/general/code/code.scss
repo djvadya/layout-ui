@@ -1,0 +1,95 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+// --------------------------------------
+// Code Block Component
+// --------------------------------------
+
+.code {
+    position: relative;
+    margin: 1rem 0;
+    background-color: var(--block-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+
+        .title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+    }
+
+    .copy {
+        display: inline-flex;
+        gap: 0.375rem;
+        align-items: center;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-black);
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        transition: all 0.2s ease-in-out;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        &:hover {
+            background-color: #f3f4f6;
+            border-color: #b0b7be;
+        }
+
+        &:active {
+            background-color: #e5e7eb;
+        }
+
+        &.no-title {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            z-index: 1;
+        }
+
+        &.copied {
+            color: var(--color-green);
+            border-color: var(--color-green);
+
+            .text::after {
+                content: "ed!";
+            }
+        }
+
+        .text {
+            user-select: none;
+        }
+    }
+
+    pre {
+        margin: 0;
+        padding: 1rem;
+        overflow-x: auto;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        background-color: transparent;
+        border-radius: 0 0 6px 6px;
+
+        code {
+            display: block;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            color: var(--color-black);
+            white-space: pre;
+            background-color: transparent;
+        }
+    }
+}

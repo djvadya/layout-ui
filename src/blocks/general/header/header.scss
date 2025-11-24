@@ -1,7 +1,7 @@
 @use "core/breakpoints" as bp;
 @use "core/mixins" as mix;
 
-.header {
+header.header {
     position: sticky;
     top: 0;
     z-index: 100;

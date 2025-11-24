@@ -1,24 +1,58 @@
+{% set variant = button.variant | default("primary") %}
+{% set size = button.size | default("md") %}
+{% set shape = button.shape | default("default") %}
+
+{% set buttonClasses = "button " + variant %}
+{% if variant != "link" %}
+    {% set buttonClasses = buttonClasses + " " + size + " " + shape %}
+{% endif %}
+{% if button.underline %}{% set buttonClasses = buttonClasses + " underline-" + button.underline %}{% endif %}
+{% if button.class %}{% set buttonClasses = buttonClasses + " " + button.class %}{% endif %}
+
 {% if button.type == "link" %}
     <a
-        {% if button.class %}class="{{ button.class }}"{% endif %}
+        class="{{ buttonClasses }}"
         {% if button.id %}id="{{ button.id }}"{% endif %}
-        {% if button.href %}href="{{ button.href }}"{% endif %}
+        {% if button.href %}href="{{ button.href }}"{% else %}href="#"{% endif %}
         {% if button.target %}target="{{ button.target }}"{% endif %}
         {% if button.rel %}rel="{{ button.rel }}"{% endif %}
-        {% if button.ariaLabel %}aria-label="{{ button.ariaLabel }}"{% endif %}
+        {% if button.data %}
+            {% for key, val in button.data %}
+                data-{{ key | replace("_", "-") }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
+        {% if button.aria %}
+            {% for key, val in button.aria %}
+                aria-{{ key | replace("_", "-") }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
+        {% if button.disabled %}class="{{ buttonClasses }} disabled"{% endif %}
     >
-        {{ button.text }}
+        {% if button.text %}
+            <span>{{ button.text }}</span>
+        {% endif %}
     </a>
 {% else %}
     <button
-        {% if button.class %}class="{{ button.class }}"{% endif %}
+        class="{{ buttonClasses }}"
         {% if button.id %}id="{{ button.id }}"{% endif %}
-        {% if button.type and button.type != "link" %}type="{{ button.type }}"{% endif %}
+        {% if button.type %}type="{{ button.type }}"{% else %}type="button"{% endif %}
         {% if button.name %}name="{{ button.name }}"{% endif %}
         {% if button.value %}value="{{ button.value }}"{% endif %}
+        {% if button.data %}
+            {% for key, val in button.data %}
+                data-{{ key | replace("_", "-") }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
+        {% if button.aria %}
+            {% for key, val in button.aria %}
+                aria-{{ key | replace("_", "-") }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
         {% if button.disabled %}disabled{% endif %}
-        {% if button.ariaLabel %}aria-label="{{ button.ariaLabel }}"{% endif %}
     >
-        {{ button.text }}
+        {% if button.text %}
+            <span>{{ button.text }}</span>
+        {% endif %}
     </button>
 {% endif %}

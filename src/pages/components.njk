@@ -4,7 +4,7 @@
 {% set breadcrumbs = [
     {
         title: "Home",
-        href: "home.html"
+        href: "../home.html"
     }, {
         title: "Components"
     }
@@ -14,7 +14,14 @@
     tag: 'h1',
     class: 'title'
 } %}
-{% extends "layouts/grid.njk" %}
+{% extends "layouts/default.njk" %}
 {% block content %}
-    content
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <a class="item" href="../components/button.html">Button</a>
+                <a class="item" href="../components/textarea.html">Textarea</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

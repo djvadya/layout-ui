@@ -1,0 +1,252 @@
+{% set meta = {
+    title: "Components"
+} %}
+{% set breadcrumbs = [
+    {
+        title: "Home",
+        href: "../home.html"
+    }, {
+        title: "Components",
+        href: "../components.html"
+    }, {
+        title: "Button"
+    }
+] %}
+{% set title = {
+    text: 'Button',
+    tag: 'h1',
+    class: 'title'
+} %}
+{% extends "layouts/grid.njk" %}
+{% block content %}
+    {# Variants #}
+    <section class="example section">
+        <h2>Button Variants</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Primary",
+                variant: "primary"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Secondary",
+                variant: "secondary"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Outline",
+                variant: "outline"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Dashed",
+                variant: "dashed"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Ghost",
+                variant: "ghost"
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Sizes #}
+    <section class="section">
+        <h2>Button Sizes</h2>
+
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Small",
+                variant: "primary",
+                size: "sm"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Medium",
+                variant: "primary",
+                size: "md"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Large",
+                variant: "primary",
+                size: "lg"
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Shapes #}
+    <section class="section">
+        <h2>Button Shapes</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Default",
+                variant: "primary",
+                shape: "default"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Rounded",
+                variant: "primary",
+                shape: "rounded"
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Disabled State #}
+    <section class="section">
+        <h2>Disabled State</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Disabled Primary",
+                variant: "primary",
+                disabled: true
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Disabled Secondary",
+                variant: "secondary",
+                disabled: true
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Disabled Outline",
+                variant: "outline",
+                disabled: true
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Disabled Dashed",
+                variant: "dashed",
+                disabled: true
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Disabled Ghost",
+                variant: "ghost",
+                disabled: true
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Button as Link #}
+    <section class="section">
+        <h2>Button as Link</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Link Button",
+                variant: "primary",
+                type: "link",
+                href: "#"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "External Link",
+                variant: "secondary",
+                type: "link",
+                href: "https://example.com",
+                target: "_blank",
+                rel: "noopener noreferrer"
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Link #}
+    <section class="section">
+        <h2>Link</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {% set button = {
+                text: "Link",
+                variant: "link",
+                type: "link",
+                href: "#"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Link",
+                variant: "link",
+                type: "link",
+                href: "#",
+                underline: "solid"
+            } %}
+            {% include "components/general/button/button.njk" %}
+
+            {% set button = {
+                text: "Link",
+                variant: "link",
+                type: "link",
+                href: "#",
+                underline: "dashed"
+            } %}
+            {% include "components/general/button/button.njk" %}
+        </div>
+    </section>
+
+    {# Usage #}
+    <section class="section">
+        <h2>Usage</h2>
+
+        {% set code = {
+            title: "All Available Options",
+            language: "njk",
+            content: '{% set button = {
+    text: "Click me",
+    variant: "primary|secondary|outline|dashed|ghost|link",
+    size: "sm|md|lg",
+    shape: "default|rounded",
+    type: "button|submit|reset|link",
+    href: "#" (for link type),
+    target: "_blank" (for link type),
+    rel: "noopener noreferrer" (for link type),
+    disabled: true|false,
+    underline: "solid|dashed" (for link variant),
+    id: "button-id",
+    name: "button-name",
+    value: "button-value",
+    class: "additional-classes",
+    data: {
+        "toggle": "modal",
+        "target": "#myModal"
+    },
+    aria: {
+        "label": "Close dialog",
+        "expanded": "false"
+    }
+} %}
+{% include "components/general/button/button.njk" %}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+    </section>
+
+    {# Note #}
+    <section class="section">
+        <h2>Note</h2>
+
+        <pre>
+- variant "link" creates a text link without button appearance
+- type "link" creates a button-styled &lt;a&gt; element
+        </pre>
+    </section>
+{% endblock %}

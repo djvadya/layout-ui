@@ -2,7 +2,7 @@
 @use "core/mixins" as mix;
 
 .navigation-top {
-    > ul {
+    ul {
         display: flex;
         gap: 2rem;
         align-items: center;
@@ -11,13 +11,13 @@
         margin: 0;
         list-style: none;
 
-        > li {
+        li {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
 
-            > a {
+            a {
                 display: flex;
                 align-items: center;
                 justify-content: center;

@@ -1,20 +1,23 @@
 {% set meta = {
-    title: "Simple"
+    title: "Components"
 } %}
 {% set breadcrumbs = [
     {
         title: "Home",
         href: "../home.html"
     }, {
-        title: "Simple"
+        title: "Components",
+        href: "../components.html"
+    }, {
+        title: "Textarea"
     }
 ] %}
 {% set title = {
-    text: 'Simple Page',
+    text: 'Textarea',
     tag: 'h1',
     class: 'title'
 } %}
-{% extends "layouts/default.njk" %}
+{% extends "layouts/grid.njk" %}
 {% block content %}
-    {% include "blocks/general/section/section.njk" %}
+    content
 {% endblock %}

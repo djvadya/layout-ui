@@ -1,1 +1,10 @@
-sidebar
+{% set items = [
+    {
+        title: "Button",
+        href: "../components/button.html"
+    }, {
+        title: "Textarea",
+        href: "../components/textarea.html"
+    }
+] %}
+{% include "components/general/navigation-side/navigation-side.njk" %}

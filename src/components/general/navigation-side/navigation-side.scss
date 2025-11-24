@@ -1,7 +1,7 @@
 @use "core/breakpoints" as bp;
 @use "core/mixins" as mix;
 
-.navigation-mobile {
+.navigation-side {
     ul {
         display: flex;
         flex-direction: column;
