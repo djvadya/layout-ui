@@ -1,0 +1,91 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+// --------------------------------------
+// Textarea Component
+// --------------------------------------
+
+.textarea {
+    // Component variables
+    --textarea-border-radius: 6px;
+    --textarea-font-size-sm: 0.75rem;
+    --textarea-font-size-md: 0.875rem;
+    --textarea-font-size-lg: 0.875rem;
+    --textarea-padding-sm: 0.625rem;
+    --textarea-padding-md: 0.75rem;
+    --textarea-padding-lg: 1rem;
+
+    // Base styles
+    display: block;
+    width: 100%;
+    font-family: var(--font-family-primary);
+    font-size: var(--textarea-font-size-md);
+    line-height: 1.5;
+    color: var(--color-black);
+    resize: vertical;
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--textarea-border-radius);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+
+    &::placeholder {
+        opacity: 1;
+    }
+
+    // Focus state
+    &:focus,
+    &:focus-within:not(:read-only) {
+        border-color: var(--color-black);
+    }
+
+    // Hover state
+    &:hover:not(:disabled):not(:read-only) {
+        border-color: var(--color-black);
+    }
+
+    // Disabled state
+    &:disabled {
+        cursor: not-allowed;
+        background-color: var(--block-bg-color);
+        opacity: 0.6;
+    }
+
+    // Readonly state
+    &:read-only {
+        background-color: var(--block-bg-color);
+        cursor: default;
+    }
+
+    // Error state
+    &.error {
+        border-color: var(--color-red);
+
+        &:focus {
+            border-color: var(--color-red);
+        }
+
+        &:hover {
+            border-color: var(--color-red) !important;
+        }
+    }
+
+    // --------------------------------------
+    // Sizes
+    // --------------------------------------
+
+    &.sm {
+        padding: var(--textarea-padding-sm);
+        font-size: var(--textarea-font-size-sm);
+    }
+
+    &.md {
+        padding: var(--textarea-padding-md);
+        font-size: var(--textarea-font-size-md);
+    }
+
+    &.lg {
+        padding: var(--textarea-padding-lg);
+        font-size: var(--textarea-font-size-lg);
+    }
+}

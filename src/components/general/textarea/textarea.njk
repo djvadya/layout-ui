@@ -1,0 +1,47 @@
+{#
+  Textarea component with multiple sizes and states
+
+  Usage:
+  {% set textarea = {
+    name: "message",
+    placeholder: "Enter your message...",
+    size: "sm|md|lg",
+    rows: 4,
+    disabled: true|false,
+    readonly: true|false,
+    required: true|false,
+    value: "Default value",
+    id: "textarea-id",
+    class: "additional-classes"
+  } %}
+  {% include "components/general/textarea/textarea.njk" %}
+#}
+
+{% set size = textarea.size | default("md") %}
+{% set rows = textarea.rows | default(4) %}
+
+{% set textareaClasses = "textarea " + size %}
+{% if textarea.error %}{% set textareaClasses = textareaClasses + " error" %}{% endif %}
+{% if textarea.class %}{% set textareaClasses = textareaClasses + " " + textarea.class %}{% endif %}
+
+<textarea
+    class="{{ textareaClasses }}"
+    {% if textarea.id %}id="{{ textarea.id }}"{% endif %}
+    {% if textarea.name %}name="{{ textarea.name }}"{% endif %}
+    {% if textarea.placeholder %}placeholder="{{ textarea.placeholder }}"{% endif %}
+    rows="{{ rows }}"
+    {% if textarea.disabled %}disabled{% endif %}
+    {% if textarea.readonly %}readonly{% endif %}
+    {% if textarea.required %}required{% endif %}
+    {% if textarea.maxlength %}maxlength="{{ textarea.maxlength }}"{% endif %}
+    {% if textarea.data %}
+        {% for key, val in textarea.data %}
+            data-{{ key | replace("_", "-") }}="{{ val }}"
+        {% endfor %}
+    {% endif %}
+    {% if textarea.aria %}
+        {% for key, val in textarea.aria %}
+            aria-{{ key | replace("_", "-") }}="{{ val }}"
+        {% endfor %}
+    {% endif %}
+>{% if textarea.value %}{{ textarea.value }}{% endif %}</textarea>

@@ -19,5 +19,124 @@
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
-    content
+    {# Sizes #}
+    <section class="section">
+        <h2>Textarea Sizes</h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+            {% set textarea = {
+                placeholder: "Small textarea...",
+                size: "sm",
+                rows: 3
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                placeholder: "Medium textarea (default)...",
+                size: "md",
+                rows: 4
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                placeholder: "Large textarea...",
+                size: "lg",
+                rows: 5
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+        </div>
+    </section>
+
+    {# States #}
+    <section class="section">
+        <h2>Textarea States</h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+            {% set textarea = {
+                placeholder: "Default textarea...",
+                rows: 4
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                value: "Disabled textarea - cannot be edited",
+                disabled: true,
+                rows: 4
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                value: "Readonly textarea - cannot be edited",
+                readonly: true,
+                rows: 4
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                placeholder: "Error state textarea...",
+                error: true,
+                rows: 4
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+        </div>
+    </section>
+
+    {# Different Rows #}
+    <section class="section">
+        <h2>Different Row Heights</h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+            {% set textarea = {
+                placeholder: "3 rows...",
+                rows: 3
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                placeholder: "6 rows...",
+                rows: 6
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+
+            {% set textarea = {
+                placeholder: "10 rows...",
+                rows: 10
+            } %}
+            {% include "components/general/textarea/textarea.njk" %}
+        </div>
+    </section>
+
+    {# Usage #}
+    <section class="section">
+        <h2>Usage</h2>
+
+        {% set code = {
+            title: "All Available Options",
+            language: "njk",
+            content: '{% set textarea = {
+  name: "message",
+  placeholder: "Enter your message...",
+  size: "sm|md|lg",
+  rows: 4,
+  value: "Default value",
+  disabled: true|false,
+  readonly: true|false,
+  required: true|false,
+  error: true|false,
+  maxlength: 500,
+  id: "textarea-id",
+  class: "additional-classes",
+  data: {
+    "validate": "true",
+    "target": "#form"
+  },
+  aria: {
+    "label": "Message input",
+    "describedby": "message-help"
+  }
+} %}
+{% include "components/general/textarea/textarea.njk" %}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+    </section>
 {% endblock %}
