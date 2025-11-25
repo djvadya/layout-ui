@@ -1,22 +1,3 @@
-{#
-  Textarea component with multiple sizes and states
-
-  Usage:
-  {% set textarea = {
-    name: "message",
-    placeholder: "Enter your message...",
-    size: "sm|md|lg",
-    rows: 4,
-    disabled: true|false,
-    readonly: true|false,
-    required: true|false,
-    value: "Default value",
-    id: "textarea-id",
-    class: "additional-classes"
-  } %}
-  {% include "components/general/textarea/textarea.njk" %}
-#}
-
 {% set size = textarea.size | default("md") %}
 {% set rows = textarea.rows | default(4) %}
 

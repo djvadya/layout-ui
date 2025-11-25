@@ -1,10 +1,6 @@
 @use "core/breakpoints" as bp;
 @use "core/mixins" as mix;
 
-// --------------------------------------
-// Textarea Component
-// --------------------------------------
-
 .textarea {
     // Component variables
     --textarea-border-radius: 6px;
@@ -23,10 +19,10 @@
     line-height: 1.5;
     color: var(--color-black);
     resize: vertical;
+    outline: none;
     background-color: var(--color-white);
     border: 1px solid var(--border-color);
     border-radius: var(--textarea-border-radius);
-    outline: none;
     transition: all 0.2s ease-in-out;
 
     &::placeholder {
@@ -40,7 +36,7 @@
     }
 
     // Hover state
-    &:hover:not(:disabled):not(:read-only) {
+    &:hover:not(:disabled, :read-only) {
         border-color: var(--color-black);
     }
 
@@ -53,8 +49,8 @@
 
     // Readonly state
     &:read-only {
-        background-color: var(--block-bg-color);
         cursor: default;
+        background-color: var(--block-bg-color);
     }
 
     // Error state

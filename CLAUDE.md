@@ -200,3 +200,363 @@ Gulp watches these patterns in development:
 - `src/**/*.scss` - Triggers `styles` task
 - `src/**/*.js` - Triggers `scripts` task
 - `src/assets/**/*.*` - Triggers `assets` task
+
+## Component Development Guidelines
+
+This section describes the standard patterns and code style for creating new components, based on existing components like `button` and `textarea`.
+
+### File Structure
+
+Each component should have:
+```
+component-name/
+├── component-name.njk   # Nunjucks template (required)
+├── component-name.scss  # Styles (required)
+└── component-name.js    # JavaScript (optional, only if needed)
+```
+
+### Nunjucks Template (.njk) Structure
+
+#### 1. Documentation Header
+
+Start every `.njk` file with a comment block explaining usage:
+
+```njk
+{#
+  Component Name with brief description
+
+  Usage:
+  {% set componentName = {
+    param1: "value",
+    param2: "option1|option2|option3",
+    param3: true|false
+  } %}
+  {% include "components/general/component-name/component-name.njk" %}
+#}
+```
+
+#### 2. Default Values
+
+Set default values at the top using Nunjucks filters:
+
+```njk
+{% set size = component.size | default("md") %}
+{% set variant = component.variant | default("primary") %}
+```
+
+#### 3. Class Name Building
+
+Build CSS classes conditionally:
+
+```njk
+{% set componentClasses = "component-name " + variant %}
+{% if component.modifier %}{% set componentClasses = componentClasses + " " + modifier %}{% endif %}
+{% if component.class %}{% set componentClasses = componentClasses + " " + component.class %}{% endif %}
+```
+
+**Pattern:** Base class + variant/size + modifiers + custom classes
+
+#### 4. HTML Element
+
+Render the element with conditional attributes:
+
+```njk
+<element
+    class="{{ componentClasses }}"
+    {% if component.id %}id="{{ component.id }}"{% endif %}
+    {% if component.name %}name="{{ component.name }}"{% endif %}
+    {% if component.disabled %}disabled{% endif %}
+    {% if component.data %}
+        {% for key, val in component.data %}
+            data-{{ key | replace("_", "-") }}="{{ val }}"
+        {% endfor %}
+    {% endif %}
+    {% if component.aria %}
+        {% for key, val in component.aria %}
+            aria-{{ key | replace("_", "-") }}="{{ val }}"
+        {% endfor %}
+    {% endif %}
+>
+    {% if component.content %}{{ component.content }}{% endif %}
+</element>
+```
+
+**Key patterns:**
+- Use `{% if %}` for optional attributes
+- Always support `data` and `aria` attributes via loops
+- Convert underscores to hyphens in data/aria keys: `replace("_", "-")`
+- Keep formatting clean with proper indentation
+
+#### 5. Conditional Logic
+
+Exclude certain modifiers from specific variants:
+
+```njk
+{% set buttonClasses = "button " + variant %}
+{% if variant != "link" %}
+    {% set buttonClasses = buttonClasses + " " + size + " " + shape %}
+{% endif %}
+```
+
+### SCSS Structure
+
+#### 1. File Header
+
+```scss
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+// --------------------------------------
+// Component Name Component
+// --------------------------------------
+```
+
+#### 2. CSS Custom Properties
+
+Define component-specific variables using CSS custom properties:
+
+```scss
+.component-name {
+    // Component variables
+    --component-border-radius: 6px;
+    --component-font-size-sm: 0.75rem;
+    --component-font-size-md: 0.875rem;
+    --component-font-size-lg: 0.875rem;
+    --component-padding-sm: 0.625rem;
+    --component-padding-md: 0.75rem;
+    --component-padding-lg: 1rem;
+
+    // Base styles
+    display: block;
+    // ... other base styles
+}
+```
+
+**Benefits:**
+- Easy to override
+- Readable variable names
+- Scoped to component
+
+#### 3. Base Styles
+
+Define base styles first:
+
+```scss
+.component-name {
+    // Variables first
+
+    // Base styles
+    position: relative;
+    display: block;
+    font-family: var(--font-family-primary);
+    font-size: var(--component-font-size-md);
+    // ... other styles
+    transition: all 0.2s ease-in-out;
+```
+
+#### 4. States
+
+Group interactive states together:
+
+```scss
+    // Focus state
+    &:focus,
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+    }
+
+    // Hover state
+    &:hover:not(:disabled) {
+        border-color: var(--color-black);
+    }
+
+    // Disabled state
+    &:disabled,
+    &.disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    // Active state
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+```
+
+**Important:** Always use `:not(:disabled)` for hover/active states
+
+#### 5. Variants Section
+
+Group variants with a comment header:
+
+```scss
+    // --------------------------------------
+    // Variants
+    // --------------------------------------
+
+    &.primary {
+        color: var(--color-white);
+        background-color: var(--color-primary);
+
+        &:hover:not(:disabled) {
+            background-color: var(--color-primary-dark);
+        }
+    }
+
+    &.secondary {
+        // ...
+    }
+```
+
+#### 6. Sizes Section
+
+Group sizes with a comment header:
+
+```scss
+    // --------------------------------------
+    // Sizes
+    // --------------------------------------
+
+    &.sm {
+        padding: var(--component-padding-sm);
+        font-size: var(--component-font-size-sm);
+    }
+
+    &.md {
+        padding: var(--component-padding-md);
+        font-size: var(--component-font-size-md);
+    }
+
+    &.lg {
+        padding: var(--component-padding-lg);
+        font-size: var(--component-font-size-lg);
+    }
+```
+
+#### 7. Modifiers
+
+Additional modifiers go after main variants:
+
+```scss
+    &.error {
+        border-color: var(--color-red);
+
+        &:focus {
+            border-color: var(--color-red);
+        }
+
+        &:hover {
+            border-color: var(--color-red) !important;
+        }
+    }
+```
+
+### Code Style Rules
+
+#### Nunjucks
+
+- **No BEM notation** - Use simple class names with modifiers
+- **Inline conditionals** - Keep simple conditions on one line:
+  ```njk
+  {% if component.id %}id="{{ component.id }}"{% endif %}
+  ```
+- **Multi-line for loops** - Format loops with proper indentation
+- **Comments** - Use `{# #}` for documentation blocks
+
+#### SCSS
+
+- **NO BEM notation** - Avoid `__element` and `--modifier` syntax
+- **Use nesting** - Nest related selectors instead of BEM:
+  ```scss
+  .component {
+      .header {
+          .title { }
+      }
+  }
+  ```
+- **Section dividers** - Use comment separators:
+  ```scss
+  // --------------------------------------
+  // Section Name
+  // --------------------------------------
+  ```
+- **State chaining** - Chain states for specificity:
+  ```scss
+  &:hover:not(:disabled):not(.disabled) { }
+  ```
+- **CSS Variables** - Use CSS custom properties prefixed with component name:
+  ```scss
+  --button-padding-md: 0.75rem;
+  ```
+
+### Parameter Naming Conventions
+
+**Common parameters all components should support:**
+- `id` - Element ID attribute
+- `class` - Additional CSS classes
+- `name` - Form element name
+- `disabled` - Disabled state (boolean)
+- `data` - Object of data attributes
+- `aria` - Object of aria attributes
+
+**Size/variant naming:**
+- `size: "sm|md|lg"` - Small, medium, large
+- `variant` - Component variants (e.g., "primary", "secondary")
+
+**Boolean flags:**
+- Use simple boolean names: `disabled`, `readonly`, `required`, `error`
+- NOT: `isDisabled`, `hasError`
+
+### Component Pages
+
+When creating a documentation page for a component:
+
+1. **Location:** `src/pages/components/component-name.njk`
+
+2. **Structure:**
+   - Metadata and breadcrumbs at top
+   - Multiple sections showing different features:
+     - Variants
+     - Sizes
+     - States
+     - Special cases
+   - Usage section with code examples at the end
+
+3. **Code examples** using the `code` component:
+   ```njk
+   {% set code = {
+       title: "Example Title",
+       language: "njk",
+       content: 'code here'
+   } %}
+   {% include "components/general/code/code.njk" %}
+   ```
+
+4. **Example containers:**
+   - Use inline styles for spacing:
+     ```njk
+     <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+     ```
+
+### Integration Checklist
+
+When adding a new component:
+
+1. ✅ Create component directory: `src/components/general/component-name/`
+2. ✅ Create `.njk` template with documentation header
+3. ✅ Create `.scss` file with proper structure
+4. ✅ Create `.js` file if component needs initialization
+5. ✅ Import SCSS in `src/scss/index.scss`:
+   ```scss
+   @use "../components/general/component-name/component-name";
+   ```
+6. ✅ Import and initialize JS in `src/js/core/init.js` (if needed):
+   ```js
+   import { initComponentName } from "../../components/general/component-name/component-name.js";
+   // ...
+   initComponentName();
+   ```
+7. ✅ Create documentation page: `src/pages/components/component-name.njk`
+8. ✅ Test all variants, sizes, and states
+9. ✅ Verify responsive behavior
+10. ✅ Run linters: `npm run lint`

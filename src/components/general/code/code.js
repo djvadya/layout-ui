@@ -1,7 +1,3 @@
-/**
- * Code Block component with copy to clipboard functionality
- */
-
 export function initCode() {
     const copyButtons = document.querySelectorAll("[data-code-copy]");
 

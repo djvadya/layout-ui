@@ -1,15 +1,3 @@
-{#
-  Code block component with copy functionality
-
-  Usage:
-  {% set code = {
-    code: "Your code here",
-    language: "html|css|js|njk" (optional),
-    title: "Example title" (optional)
-  } %}
-  {% include "components/general/code/code.njk" %}
-#}
-
 <div class="code">
     {% if code.title %}
         <div class="header">
