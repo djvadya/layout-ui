@@ -1,20 +1,22 @@
 {% set meta = {
     title: "Docs"
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Docs"
-    }
-] %}
-{% set title = {
-    text: 'Docs',
-    tag: 'h1',
-    class: 'title'
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Docs" }
+    ]
 } %}
-{% extends "layouts/grid.njk" %}
+{% set title = {
+    text: "Docs",
+    tag: "h1",
+    class: "title"
+} %}
+{% extends "layouts/default.njk" %}
 {% block content %}
-    content
+    <section class="section">
+        <div class="container">
+            content
+        </div>
+    </section>
 {% endblock %}

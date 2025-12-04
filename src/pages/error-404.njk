@@ -1,15 +1,13 @@
 {% set meta = {
-    title: "Page not found",
+    title: "Error 404",
     is_404: true
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Page not found"
-    }
-] %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Page not found" }
+    ]
+} %}
 {% extends "layouts/default.njk" %}
 {% block content %}
     {% include "blocks/general/error-404/error-404.njk" %}

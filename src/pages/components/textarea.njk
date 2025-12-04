@@ -1,29 +1,26 @@
 {% set meta = {
-    title: "Components"
+    title: "Textarea",
+    sidebar: "components"
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Components",
-        href: "../components.html"
-    }, {
-        title: "Textarea"
-    }
-] %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Components", url: "../components.html" },
+        { title: "Textarea" }
+    ]
+} %}
 {% set title = {
-    text: 'Textarea',
-    tag: 'h1',
-    class: 'title'
+    text: "Textarea",
+    tag: "h1",
+    class: "title"
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
     {# Sizes #}
-    <section class="section">
+    <section class="example section">
         <h2>Textarea Sizes</h2>
 
-        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+        <div class="block">
             {% set textarea = {
                 placeholder: "Small textarea...",
                 size: "sm",
@@ -48,10 +45,10 @@
     </section>
 
     {# States #}
-    <section class="section">
+    <section class="example section">
         <h2>Textarea States</h2>
 
-        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+        <div class="block">
             {% set textarea = {
                 placeholder: "Default textarea...",
                 rows: 4
@@ -82,10 +79,10 @@
     </section>
 
     {# Different Rows #}
-    <section class="section">
+    <section class="example section">
         <h2>Different Row Heights</h2>
 
-        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
+        <div class="block">
             {% set textarea = {
                 placeholder: "3 rows...",
                 rows: 3

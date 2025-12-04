@@ -1,28 +1,25 @@
 {% set meta = {
-    title: "Components"
+    title: "Button",
+    sidebar: "components"
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Components",
-        href: "../components.html"
-    }, {
-        title: "Button"
-    }
-] %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Components", url: "../components.html" },
+        { title: "Button" }
+    ]
+} %}
 {% set title = {
-    text: 'Button',
-    tag: 'h1',
-    class: 'title'
+    text: "Button",
+    tag: "h1",
+    class: "title"
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
     {# Variants #}
     <section class="example section">
-        <h2>Button Variants</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <h2 class="title">Button Variants</h2>
+        <div class="row">
             {% set button = {
                 text: "Primary",
                 variant: "primary"
@@ -56,10 +53,10 @@
     </section>
 
     {# Sizes #}
-    <section class="section">
+    <section class="example section">
         <h2>Button Sizes</h2>
 
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div class="row">
             {% set button = {
                 text: "Small",
                 variant: "primary",
@@ -84,10 +81,10 @@
     </section>
 
     {# Shapes #}
-    <section class="section">
+    <section class="example section">
         <h2>Button Shapes</h2>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="row">
             {% set button = {
                 text: "Default",
                 variant: "primary",
@@ -105,10 +102,10 @@
     </section>
 
     {# Disabled State #}
-    <section class="section">
+    <section class="example section">
         <h2>Disabled State</h2>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="row">
             {% set button = {
                 text: "Disabled Primary",
                 variant: "primary",
@@ -147,10 +144,10 @@
     </section>
 
     {# Button as Link #}
-    <section class="section">
+    <section class="example section">
         <h2>Button as Link</h2>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="row">
             {% set button = {
                 text: "Link Button",
                 variant: "primary",
@@ -172,10 +169,10 @@
     </section>
 
     {# Link #}
-    <section class="section">
+    <section class="example section">
         <h2>Link</h2>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="row">
             {% set button = {
                 text: "Link",
                 variant: "link",
@@ -244,9 +241,11 @@
     <section class="section">
         <h2>Note</h2>
 
-        <pre>
-- variant "link" creates a text link without button appearance
-- type "link" creates a button-styled &lt;a&gt; element
-        </pre>
+        <code>
+            <ul>
+                <li>variant "link" creates a text link without button appearance</li>
+                <li>type "link" creates a button-styled &lt;a&gt; element</li>
+            </ul>
+        </code>
     </section>
 {% endblock %}

@@ -122,7 +122,6 @@ h6 {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    padding: 1rem 0 0;
 }
 
 .layout {
@@ -130,6 +129,10 @@ h6 {
         display: grid;
         grid-template-columns: 2fr 10fr;
         gap: 2rem;
+
+        @include bp.mq(tablet) {
+            display: block;
+        }
 
         .container {
             padding: 0;

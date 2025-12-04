@@ -1,0 +1,25 @@
+@use "core/breakpoints" as bp;
+@use "core/mixins" as mix;
+
+.example {
+    .block {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        @include mix.reset-child-outer-margins;
+
+        > * {
+            margin: 0;
+        }
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        @include mix.reset-child-outer-margins;
+    }
+}

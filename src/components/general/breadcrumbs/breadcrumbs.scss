@@ -1,23 +1,133 @@
 @use "core/breakpoints" as bp;
 @use "core/mixins" as mix;
 
-.breadcrumbs {
-    width: 100%;
-    margin-bottom: 2.5rem;
+// --------------------------------------
+// Breadcrumbs Component
+// --------------------------------------
 
-    ul {
-        display: inline;
+.breadcrumbs {
+    // Component variables
+    --breadcrumbs-font-size-sm: 0.75rem;
+    --breadcrumbs-font-size-md: 0.875rem;
+    --breadcrumbs-font-size-lg: 1rem;
+    --breadcrumbs-gap-sm: 0.25rem;
+    --breadcrumbs-gap-md: 0.375rem;
+    --breadcrumbs-gap-lg: 0.5rem;
+
+    // Base styles
+    display: block;
+    width: 100%;
+    margin-top: 0.75rem;
+    margin-bottom: 2.25rem;
+
+    // --------------------------------------
+    // List
+    // --------------------------------------
+
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--breadcrumbs-gap-md);
+        align-items: center;
         padding: 0;
         margin: 0;
+        font-size: var(--breadcrumbs-font-size-md);
+        line-height: 1.5;
         list-style: none;
+    }
 
-        li {
-            display: inline;
-            font-size: 0.75rem;
+    // --------------------------------------
+    // Item
+    // --------------------------------------
 
-            a {
-                display: inline-flex;
-            }
+    .item {
+        display: inline-flex;
+        gap: var(--breadcrumbs-gap-md);
+        align-items: center;
+    }
+
+    // --------------------------------------
+    // Link
+    // --------------------------------------
+
+    .link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--color-black);
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    // --------------------------------------
+    // Current Page
+    // --------------------------------------
+
+    .current-page {
+        display: inline-flex;
+        align-items: center;
+        color: var(--color-gray-dark);
+    }
+
+    // --------------------------------------
+    // Separator
+    // --------------------------------------
+
+    .separator {
+        display: inline-flex;
+        align-items: center;
+        color: var(--color-black);
+        user-select: none;
+
+        svg {
+            display: block;
+            width: 1em;
+            height: 1em;
+        }
+
+        &.chevron svg {
+            width: 1em;
+            height: 1em;
+        }
+    }
+
+    // --------------------------------------
+    // Sizes
+    // --------------------------------------
+
+    &.sm {
+        .list {
+            gap: var(--breadcrumbs-gap-sm);
+            font-size: var(--breadcrumbs-font-size-sm);
+        }
+
+        .item {
+            gap: var(--breadcrumbs-gap-sm);
+        }
+    }
+
+    &.md {
+        .list {
+            gap: var(--breadcrumbs-gap-md);
+            font-size: var(--breadcrumbs-font-size-md);
+        }
+
+        .item {
+            gap: var(--breadcrumbs-gap-md);
+        }
+    }
+
+    &.lg {
+        .list {
+            gap: var(--breadcrumbs-gap-lg);
+            font-size: var(--breadcrumbs-font-size-lg);
+        }
+
+        .item {
+            gap: var(--breadcrumbs-gap-lg);
         }
     }
 }

@@ -1,18 +1,16 @@
 {% set meta = {
-    title: "Simple"
+    title: "Simple pgae"
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Simple"
-    }
-] %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Simple pgae" }
+    ]
+} %}
 {% set title = {
-    text: 'Simple Page',
-    tag: 'h1',
-    class: 'title'
+    text: "Simple pgae",
+    tag: "h1",
+    class: "title"
 } %}
 {% extends "layouts/default.njk" %}
 {% block content %}

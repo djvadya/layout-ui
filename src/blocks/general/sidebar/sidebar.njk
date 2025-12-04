@@ -1,10 +1,15 @@
-{% set items = [
-    {
-        title: "Button",
-        href: "../components/button.html"
-    }, {
-        title: "Textarea",
-        href: "../components/textarea.html"
-    }
-] %}
-{% include "components/general/navigation-side/navigation-side.njk" %}
+{% if meta.sidebar == "components" %}
+    {% set items = [
+        {
+            title: "Button",
+            href: "../components/button.html"
+        }, {
+            title: "Textarea",
+            href: "../components/textarea.html"
+        }, {
+            title: "Breadcrumbs",
+            href: "../components/breadcrumbs.html"
+        }
+    ] %}
+    {% include "components/general/navigation-side/navigation-side.njk" %}
+{%  endif %}

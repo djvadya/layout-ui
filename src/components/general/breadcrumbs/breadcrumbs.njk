@@ -1,17 +1,41 @@
-<nav class="breadcrumbs">
+{% set items = breadcrumbs.items | default([]) %}
+{% set separator = breadcrumbs.separator | default("chevron") %}
+{% set size = breadcrumbs.size | default("md") %}
+{% set ariaLabel = breadcrumbs.ariaLabel | default("Breadcrumbs") %}
+
+{% set breadcrumbsClasses = "breadcrumbs " + size %}
+{% if breadcrumbs.class %}{% set breadcrumbsClasses = breadcrumbsClasses + " " + breadcrumbs.class %}{% endif %}
+
+<nav class="{{ breadcrumbsClasses }}" aria-label="{{ ariaLabel }}">
     <div class="container">
-        <ul itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList">
-            {% for crumb in breadcrumbs %}
-                <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem">
-                    {% if crumb.href %}
-                        {% if not loop.first %}&nbsp;&nbsp;•&nbsp;&nbsp;{% endif %}
-                        <a href="{{ crumb.href }}" title="{{ crumb.title }}" itemprop="item">
-                            <span itemprop="name">{{ crumb.title }}</span>
+        <ul class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
+            {% for item in items %}
+                <li class="item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    {% if item.url %}
+                        <a
+                            href="{{ item.url }}"
+                            class="link"
+                            itemprop="item"
+                            {% if item.title %}title="{{ item.title }}"{% endif %}
+                        >
+                            <span itemprop="name">{{ item.title }}</span>
                         </a>
-                        <meta itemprop="position" content="{{ loop.index }}"/>
                     {% else %}
-                        &nbsp;&nbsp;•&nbsp;&nbsp;
-                        <span>{{ crumb.title }}</span>
+                        <span class="current-page" aria-current="page" itemprop="name">{{ item.title }}</span>
+                    {% endif %}
+                    <meta itemprop="position" content="{{ loop.index }}">
+
+                    {% if not loop.last %}
+                        <span class="separator {{ separator }}" aria-hidden="true">
+                            {% if separator == "chevron" %}
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            {% elif separator == "slash" %}/
+                            {% elif separator == "arrow" %}→
+                            {% else %}•
+                            {% endif %}
+                        </span>
                     {% endif %}
                 </li>
             {% endfor %}

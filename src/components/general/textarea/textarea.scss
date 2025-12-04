@@ -32,12 +32,7 @@
     // Focus state
     &:focus,
     &:focus-within:not(:read-only) {
-        border-color: var(--color-black);
-    }
-
-    // Hover state
-    &:hover:not(:disabled, :read-only) {
-        border-color: var(--color-black);
+        border-color: var(--border-color-active);
     }
 
     // Disabled state

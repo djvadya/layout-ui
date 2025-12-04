@@ -1,27 +1,26 @@
 {% set meta = {
     title: "Components"
 } %}
-{% set breadcrumbs = [
-    {
-        title: "Home",
-        href: "../home.html"
-    }, {
-        title: "Components"
-    }
-] %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Components" }
+    ]
+} %}
 {% set title = {
-    text: 'Components',
-    tag: 'h1',
-    class: 'title'
+    text: "Components",
+    tag: "h1",
+    class: "title"
 } %}
 {% extends "layouts/default.njk" %}
 {% block content %}
     <section class="section">
         <div class="container">
-            <div class="grid">
-                <a class="item" href="../components/button.html">Button</a>
-                <a class="item" href="../components/textarea.html">Textarea</a>
-            </div>
+            <ul>
+                <li><a class="item" href="../components/button.html">Button</a></li>
+                <li><a class="item" href="../components/textarea.html">Textarea</a></li>
+                <li><a class="item" href="../components/breadcrumbs.html">Breadcrumbs</a></li>
+            </ul>
         </div>
     </section>
 {% endblock %}

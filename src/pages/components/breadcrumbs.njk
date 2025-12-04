@@ -1,0 +1,141 @@
+{% set meta = {
+    title: "Breadcrumbs",
+    sidebar: "components"
+} %}
+{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "../home.html" },
+        { title: "Components", url: "../components.html" },
+        { title: "Breadcrumbs" }
+    ]
+} %}
+{% set title = {
+    text: "Breadcrumbs",
+    tag: "h1",
+    class: "title"
+} %}
+{% extends "layouts/grid.njk" %}
+{% block content %}
+    {# Variants #}
+    <section class="example section">
+        <h2>Variants</h2>
+        <div class="block">
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Category", url: "/category" },
+                    { title: "Current page" }
+                ],
+                separator: "chevron"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Category", url: "/category" },
+                    { title: "Current page" }
+                ],
+                separator: "slash"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Category", url: "/category" },
+                    { title: "Current page" }
+                ],
+                separator: "dot"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Category", url: "/category" },
+                    { title: "Current page" }
+                ],
+                separator: "arrow"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+        </div>
+    </section>
+
+    {# Sizes #}
+    <section class="example section">
+        <h2>Sizes</h2>
+
+        <div class="block">
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Products", url: "/products" },
+                    { title: "Current Page" }
+                ],
+                size: "sm"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Products", url: "/products" },
+                    { title: "Current Page" }
+                ],
+                size: "md"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+
+            {% set breadcrumbs = {
+                items: [
+                    { title: "Home", url: "/" },
+                    { title: "Products", url: "/products" },
+                    { title: "Current Page" }
+                ],
+                size: "lg"
+            } %}
+            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+        </div>
+    </section>
+
+    {# Usage #}
+    <section class="section">
+        <h2>Usage</h2>
+
+        {% set code = {
+            title: "All Available Options",
+            language: "njk",
+            content: '{% set breadcrumbs = {
+    items: [
+        { title: "Home", url: "/" },
+        { title: "Category", url: "/category" },
+        { title: "Current Page" }
+    ],
+    separator: "chevron|slash|dot|arrow",
+    size: "sm|md|lg",
+    class: "custom-class",
+    ariaLabel: "Breadcrumb navigation"
+} %}
+{% include "components/general/breadcrumbs/breadcrumbs.njk" %}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+    </section>
+
+    {# Note #}
+    <section class="section">
+        <h2>Note</h2>
+
+        <code>
+            <p>The breadcrumbs component includes valid Schema.org BreadcrumbList microdata for better SEO:</p>
+            <ul>
+                <li>itemtype="https://schema.org/BreadcrumbList" on the list</li>
+                <li>itemtype="https://schema.org/ListItem" on each item</li>
+                <li>itemprop="item" on links</li>
+                <li>itemprop="name" on titles</li>
+                <li>itemprop="position" for item order</li>
+                <li>aria-current="page" on the current page</li>
+            </ul>
+        </code>
+    </section>
+{% endblock %}
