@@ -14,6 +14,10 @@ import pngquant from "imagemin-pngquant";
 import { deleteSync } from "del";
 import rename from "gulp-rename";
 import replace from "gulp-replace";
+import htmlValidator from "html-validator";
+import fg from "fast-glob";
+import fs from "fs";
+import path from "path";
 
 const sassCompiler = gulpSass(sass);
 const bs = browsersync.create();
@@ -137,6 +141,65 @@ export const assetsProd = () =>
             ]),
         )
         .pipe(gulp.dest(`${paths.prodDist}/assets`));
+
+// Ручное сжатие изображений в src (заменяет оригиналы)
+export const compressImages = () => {
+    console.log("\n⚠️  ВНИМАНИЕ: Эта команда заменит оригинальные изображения сжатыми версиями!\n");
+
+    return gulp
+        .src("src/assets/images/**/*.{jpg,jpeg,png}", { encoding: false })
+        .pipe(
+            imagemin([
+                mozjpeg({ quality: 85, progressive: true }),
+                pngquant({ quality: [0.7, 0.9] }),
+            ]),
+        )
+        .pipe(gulp.dest("src/assets/images"));
+};
+
+// Валидация HTML через W3C валидатор
+export const validateHtml = async () => {
+    const htmlFiles = await fg(`${paths.prodDist}/**/*.html`);
+
+    if (htmlFiles.length === 0) {
+        console.log("\n⚠️  HTML файлы не найдены в папке build/. Запустите 'npm run build' сначала.\n");
+        return;
+    }
+
+    console.log(`\n🔍 Проверка ${htmlFiles.length} HTML файл(ов)...\n`);
+
+    let totalErrors = 0;
+
+    for (const file of htmlFiles) {
+        const html = fs.readFileSync(file, "utf8");
+        const fileName = path.relative(paths.prodDist, file);
+
+        try {
+            const result = await htmlValidator({
+                data: html,
+                format: "json",
+            });
+
+            const messages = result.messages || [];
+            const errors = messages.filter((msg) => msg.type === "error");
+
+            if (errors.length > 0) {
+                console.log(`\n📄 ${fileName}`);
+                console.log(`  ❌ Ошибок: ${errors.length}`);
+                errors.forEach((err) => {
+                    console.log(`     Строка ${err.lastLine}: ${err.message}`);
+                });
+                totalErrors += errors.length;
+            } else {
+                console.log(`✅ ${fileName} - валидация пройдена`);
+            }
+        } catch (error) {
+            console.error(`\n❌ Ошибка валидации ${fileName}:`, error.message);
+        }
+    }
+
+    console.log(`\n📊 Итого: ${totalErrors} ошибок\n`);
+};
 
 // Сервер для разработки (использует temp/)
 export const serve = () => {

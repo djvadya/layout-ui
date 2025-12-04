@@ -9,13 +9,16 @@
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "lint:scss": "stylelint \"src/**/*.scss\"",
-    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix"
+    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix",
+    "validate": "gulp validateHtml",
+    "compress": "gulp compressImages"
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",
     "cssnano": "^7.1.2",
     "del": "^8.0.1",
     "eslint": "^9.39.1",
+    "fast-glob": "^3.3.3",
     "globals": "^16.5.0",
     "gulp": "^5.0.1",
     "gulp-autoprefixer": "^10.0.0",
@@ -27,6 +30,7 @@
     "gulp-replace": "^1.1.4",
     "gulp-sass": "^6.0.1",
     "gulp-sourcemaps": "^3.0.0",
+    "html-validator": "^6.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
     "postcss": "^8.5.6",
