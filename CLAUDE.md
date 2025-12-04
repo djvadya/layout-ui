@@ -56,6 +56,28 @@ npm run lint:scss:fix
 ```
 Auto-fix SCSS linting issues.
 
+### Format Code
+```sh
+npm run format
+```
+Check code formatting for HTML, SCSS, JS, and JSON files using Prettier.
+
+```sh
+npm run format:fix
+```
+Auto-fix code formatting issues.
+
+### Additional Commands
+```sh
+npm run validate
+```
+Validate HTML files in `build/` directory with W3C validator. Run `npm run build` first.
+
+```sh
+npm run compress
+```
+Compress source images in `src/assets/images/` (replaces originals with higher quality than production build).
+
 ## Architecture
 
 ### Build System (gulpfile.js)
@@ -137,6 +159,8 @@ esbuild bundles everything into a single IIFE bundle for the browser.
 
 ### Code Quality
 
+The project uses three complementary tools for code quality:
+
 #### ESLint (JavaScript)
 
 **Configuration**: `eslint.config.js` (ESLint 9+ flat config format)
@@ -145,15 +169,16 @@ ESLint is configured with:
 - ES modules support (`sourceType: "module"`)
 - Browser and Node.js globals
 - Recommended JavaScript rules
-- Custom stylistic rules (4-space indentation, double quotes, semicolons)
+- **eslint-config-prettier** integration (disables conflicting style rules)
 - Auto-ignore patterns for `node_modules/`, `temp/`, `build/`, and `*.min.js`
 
-Key rules enforced:
+Key rules enforced (logic only, no style rules):
 - `no-var` - Must use `let`/`const` instead of `var`
 - `prefer-const` - Use `const` for variables that are never reassigned
-- `indent: 4` - 4-space indentation
-- `quotes: "double"` - Double quotes for strings
-- `semi: "always"` - Always use semicolons
+- `prefer-arrow-callback` - Prefer arrow functions for callbacks
+- `prefer-template` - Prefer template literals over string concatenation
+
+**Note:** All stylistic rules (indentation, quotes, semicolons, spacing) are handled by Prettier.
 
 #### Stylelint (SCSS/CSS)
 
@@ -162,6 +187,7 @@ Key rules enforced:
 Stylelint is configured with:
 - `stylelint-config-standard-scss` - Standard SCSS rules
 - `stylelint-config-recess-order` - Automatic CSS property ordering (similar to Bootstrap's style)
+- **stylelint-config-prettier-scss** integration (disables conflicting style rules)
 - Auto-ignore patterns for `node_modules/`, `temp/`, `build/`, and `*.min.css`
 
 Features:
@@ -169,12 +195,32 @@ Features:
 - Automatic property ordering (position → display → box-model → typography → visual → etc.)
 - Detection of duplicate selectors and invalid rules
 - Color, unit, and value validation
-- Auto-fix support for most formatting issues
+- Auto-fix support for most issues
 
 Key rules disabled for flexibility:
 - `selector-class-pattern` - No BEM enforcement
 - `scss/dollar-variable-pattern` - No variable naming restrictions
 - `no-descending-specificity` - Allows flexible specificity
+
+#### Prettier (Code Formatter)
+
+**Configuration**: `.prettierrc.json` | **Ignore**: `.prettierignore`
+
+Prettier is configured with:
+- 4-space indentation (matches ESLint settings)
+- Double quotes
+- Semicolons always
+- Line width: 120 characters
+- LF line endings
+- **Formats**: HTML, SCSS, JS, JSON
+- **Excludes**: `.njk` files (Nunjucks templates are not formatted)
+
+Integration:
+- `eslint-config-prettier` disables all ESLint style rules
+- `stylelint-config-prettier-scss` disables all Stylelint style rules
+- **No conflicts** between tools - Prettier handles all formatting, linters handle code quality
+
+**Important:** Always run `npm run format:fix` before committing to ensure consistent code style.
 
 ## Common Libraries
 
@@ -559,4 +605,5 @@ When adding a new component:
 7. ✅ Create documentation page: `src/pages/components/component-name.njk`
 8. ✅ Test all variants, sizes, and states
 9. ✅ Verify responsive behavior
-10. ✅ Run linters: `npm run lint`
+10. ✅ Run linters: `npm run lint` and fix any issues with `:fix` commands
+11. ✅ Format code: `npm run format:fix` to ensure consistent formatting

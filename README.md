@@ -60,20 +60,48 @@ This will:
 
 ### Code Quality
 
+**Linting:**
+
 ```sh
-npm run lint
+npm run lint             # Check both JavaScript and SCSS
+npm run lint:js          # Check JavaScript with ESLint
+npm run lint:js:fix      # Auto-fix JavaScript issues
+
+npm run lint:scss        # Check SCSS with Stylelint
+npm run lint:scss:fix    # Auto-fix SCSS issues
 ```
 
-Check both JavaScript (ESLint) and SCSS (Stylelint) for errors and style issues.
-
-**Individual checks:**
+**Formatting:**
 
 ```sh
-npm run lint:js          # Check JavaScript
-npm run lint:js:fix      # Auto-fix JavaScript
+npm run format           # Check code formatting (HTML, SCSS, JS, JSON)
+npm run format:fix       # Auto-fix formatting issues
+```
 
-npm run lint:scss        # Check SCSS
-npm run lint:scss:fix    # Auto-fix SCSS
+Prettier is fully integrated with ESLint and Stylelint - no conflicts!
+
+### Additional Commands
+
+**HTML Validation:**
+
+```sh
+npm run validate         # Validate HTML files with W3C validator
+```
+
+Validates all HTML files in `build/` directory. Run `npm run build` first.
+
+**Image Compression:**
+
+```sh
+npm run compress         # Compress source images (replaces originals!)
+```
+
+Compresses images in `src/assets/images/` with higher quality settings than production build.
+
+**Clean Build Directories:**
+
+```sh
+gulp clean               # Remove temp/ and build/ folders
 ```
 
 ## Project Structure
@@ -122,6 +150,29 @@ component-name/
 └── component-name.js             # Logic (optional)
 ```
 
+### Available Components
+
+**General Components** (reusable):
+- `button` - Button with variants (primary, secondary, outline) and sizes
+- `textarea` - Textarea with states (default, error, disabled)
+- `breadcrumbs` - Navigation breadcrumbs
+- `code` - Code block with syntax highlighting
+- `menu` - Mobile menu toggle
+- `heading`, `title`, `text` - Typography components
+- `navigation-top`, `navigation-side`, `navigation-mobile` - Navigation elements
+
+**Common Components** (unique):
+- `logo` - Site logo
+- `copyright` - Copyright text
+- `dev`, `stack` - Development info components
+
+**Blocks** (structural sections):
+- `header`, `footer` - Page header and footer
+- `section`, `sidebar` - Content containers
+- `hero` - Hero section
+- `error-404` - 404 error page
+- `example` - Example/demo block
+
 ## Technology Stack
 
 ### Core Technologies
@@ -131,8 +182,14 @@ component-name/
 - **[esbuild](https://esbuild.github.io/)** - Ultra-fast JavaScript bundler
 - **[Gulp](https://gulpjs.com/)** - Task runner and build system
 - **[BrowserSync](https://browsersync.io/)** - Live reloading and synchronized testing
-- **[ESLint](https://eslint.org/)** - JavaScript linter for code quality and consistency
+
+### Code Quality Tools
+
+- **[ESLint](https://eslint.org/)** - JavaScript linter (ESLint 9+ flat config)
 - **[Stylelint](https://stylelint.io/)** - SCSS/CSS linter with automatic property ordering
+- **[Prettier](https://prettier.io/)** - Opinionated code formatter for HTML, SCSS, JS, JSON
+- **eslint-config-prettier** - Disables conflicting ESLint rules
+- **stylelint-config-prettier-scss** - Disables conflicting Stylelint rules
 
 ### Included Libraries
 
