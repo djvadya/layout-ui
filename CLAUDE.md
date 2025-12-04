@@ -146,14 +146,17 @@ The Sass compiler uses `includePaths` to resolve imports from:
 
 ### JavaScript System
 
-**Entry point**: `src/js/index.js` (imports `core/init.js`)
+**Entry point**: `src/js/index.js`
 
-`src/js/core/init.js`:
+`src/js/index.js`:
 - Initializes lozad.js for lazy loading images with `.lazy` class
 - Registers component initializers on DOMContentLoaded
-- Imports component JS files (e.g., `initMenu()` from menu component)
+- Imports component JS files (e.g., `initMenu()`, `initCode()` from components)
 
-Component JS files export initialization functions imported in `init.js`.
+**Utility functions**: `src/js/utils/`
+- Directory for shared utility functions (DOM helpers, event delegation, debounce/throttle, etc.)
+
+Component JS files export initialization functions imported in `index.js`.
 
 esbuild bundles everything into a single IIFE bundle for the browser.
 
@@ -224,19 +227,43 @@ Integration:
 
 ## Common Libraries
 
-- **Fancyapps UI** - Lightbox gallery
-- **GSAP** - Animations
-- **Inputmask** - Input masking
-- **Swiper** - Carousels/sliders
-- **Lozad.js** - Lazy loading (images with `.lazy` class)
-- **Nice Select 2** - Custom select styling
+**Currently Active:**
+- **Lozad.js** - Lazy loading for images with `.lazy` class (active)
+
+**Installed but Not Implemented:**
+- **Swiper** - Carousels/sliders (CSS imported, JS not initialized)
+- **@fancyapps/ui** - Lightbox gallery (CSS imported, JS not initialized)
+- **nice-select2** - Custom select styling (CSS imported, no select component exists)
+- **imask** - Input masking (installed, not used)
+
+**Note:** Unused libraries should either be implemented with example components or removed to reduce bundle size.
+
+## Known Issues & Inconsistencies
+
+### Critical
+- **Missing Animation:** `rotation` keyframe used in `globals.scss:168` is not defined in `animations.scss`
+- Fix: Add `@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`
+
+### Component Architecture
+- **Inconsistent Patterns:** Only button, textarea, and breadcrumbs use macro pattern
+- Other components (title, heading, text, navigation) still use include pattern
+- **Recommendation:** Standardize all components to use macros for consistency
+
+### Missing Components
+- No form input components (text input, select, checkbox, radio)
+- No common UI components (modal, alert, tabs, accordion, tooltip)
+- No documentation pages for: title, heading, text, navigation components
+
+### Accessibility
+- Only button and breadcrumbs have proper ARIA attribute support
+- Other components need accessibility improvements
 
 ## Adding New Components
 
 1. Create component directory in `src/components/general/` or `src/blocks/general/`
 2. Create `.njk`, `.scss`, and `.js` files (if needed)
 3. Import SCSS in `src/scss/index.scss`
-4. If component needs initialization, export init function from `.js` and import in `src/js/core/init.js`
+4. If component needs initialization, export init function from `.js` and import in `src/js/index.js`
 5. Include component in pages/layouts using `{% include "path/to/component.njk" %}`
 
 ## File Watching
@@ -263,31 +290,31 @@ component-name/
 
 ### Nunjucks Template (.njk) Structure
 
-#### 1. Documentation Header
+**Important:** All components should use **Nunjucks macros** for better reusability and cleaner scope. Do NOT add documentation comments inside component files.
 
-Start every `.njk` file with a comment block explaining usage:
+#### 1. Macro Definition
+
+Define component as a macro with parameters:
 
 ```njk
-{#
-  Component Name with brief description
-
-  Usage:
-  {% set componentName = {
-    param1: "value",
-    param2: "option1|option2|option3",
-    param3: true|false
-  } %}
-  {% include "components/general/component-name/component-name.njk" %}
-#}
+{% macro render(
+    text="",
+    variant="primary",
+    size="md",
+    disabled=false,
+    class="",
+    data={},
+    aria={}
+) %}
 ```
 
 #### 2. Default Values
 
-Set default values at the top using Nunjucks filters:
+Default values are defined in macro parameters. Additional defaults inside macro:
 
 ```njk
-{% set size = component.size | default("md") %}
-{% set variant = component.variant | default("primary") %}
+{% set componentClasses = "component-name " + variant + " " + size %}
+{% if class %}{% set componentClasses = componentClasses + " " + class %}{% endif %}
 ```
 
 #### 3. Class Name Building
@@ -342,7 +369,18 @@ Exclude certain modifiers from specific variants:
 {% if variant != "link" %}
     {% set buttonClasses = buttonClasses + " " + size + " " + shape %}
 {% endif %}
+{% endmacro %}
 ```
+
+**Usage in pages:**
+```njk
+{% from "components/general/button/button.njk" import render as button %}
+
+{{ button(text="Click me", variant="primary", size="lg") }}
+{{ button(text="Secondary", variant="secondary") }}
+```
+
+**Import placement:** Always place macro imports at the **top of the file**, before any other code (similar to JavaScript/CSS imports).
 
 ### SCSS Structure
 
@@ -559,7 +597,12 @@ When creating a documentation page for a component:
 
 1. **Location:** `src/pages/components/component-name.njk`
 
-2. **Structure:**
+2. **Import macro at the top:**
+   ```njk
+   {% from "components/general/component-name/component-name.njk" import render as componentName %}
+   ```
+
+3. **Structure:**
    - Metadata and breadcrumbs at top
    - Multiple sections showing different features:
      - Variants
@@ -568,7 +611,19 @@ When creating a documentation page for a component:
      - Special cases
    - Usage section with code examples at the end
 
-3. **Code examples** using the `code` component:
+4. **Usage examples:**
+   ```njk
+   {# Variants section #}
+   <section class="example section">
+       <h2>Variants</h2>
+       <div class="row">
+           {{ componentName(text="Primary", variant="primary") }}
+           {{ componentName(text="Secondary", variant="secondary") }}
+       </div>
+   </section>
+   ```
+
+5. **Code examples** using the `code` component:
    ```njk
    {% set code = {
        title: "Example Title",
@@ -578,7 +633,7 @@ When creating a documentation page for a component:
    {% include "components/general/code/code.njk" %}
    ```
 
-4. **Example containers:**
+6. **Example containers:**
    - Use inline styles for spacing:
      ```njk
      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px;">
@@ -589,21 +644,30 @@ When creating a documentation page for a component:
 When adding a new component:
 
 1. ✅ Create component directory: `src/components/general/component-name/`
-2. ✅ Create `.njk` template with documentation header
-3. ✅ Create `.scss` file with proper structure
+2. ✅ Create `.njk` template as **macro** (no documentation comments inside)
+   ```njk
+   {% macro render(param1="default", param2="default") %}
+       {# Component implementation #}
+   {% endmacro %}
+   ```
+3. ✅ Create `.scss` file with proper structure (use component name as base class)
 4. ✅ Create `.js` file if component needs initialization
 5. ✅ Import SCSS in `src/scss/index.scss`:
    ```scss
    @use "../components/general/component-name/component-name";
    ```
-6. ✅ Import and initialize JS in `src/js/core/init.js` (if needed):
+6. ✅ Import and initialize JS in `src/js/index.js` (if needed):
    ```js
    import { initComponentName } from "../../components/general/component-name/component-name.js";
    // ...
    initComponentName();
    ```
 7. ✅ Create documentation page: `src/pages/components/component-name.njk`
+   - Import macro at the top of the file
+   - Show all variants, sizes, and states
+   - Include usage examples with code snippets
 8. ✅ Test all variants, sizes, and states
 9. ✅ Verify responsive behavior
-10. ✅ Run linters: `npm run lint` and fix any issues with `:fix` commands
-11. ✅ Format code: `npm run format:fix` to ensure consistent formatting
+10. ✅ Add ARIA attributes support for accessibility
+11. ✅ Run linters: `npm run lint` and fix any issues
+12. ✅ Format code: `npm run format:fix` to ensure consistent formatting

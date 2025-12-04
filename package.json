@@ -1,7 +1,12 @@
 {
-  "name": "project",
+  "name": "layout-ui",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "author": "@devproweb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/djvadya/layout-ui"
+  },
   "scripts": {
     "start": "gulp",
     "dev": "gulp",

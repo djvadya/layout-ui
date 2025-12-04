@@ -1,6 +1,6 @@
 # Layout UI
 
-Modern static site generator built with Gulp, Nunjucks, and SCSS. Features a component-based architecture for building responsive web layouts with live reload and optimized production builds.
+Modern site layout with Gulp, Nunjucks, and SCSS. Features a component-based architecture for building responsive web layouts with live reload and optimized production builds.
 
 ## Features
 
@@ -39,6 +39,7 @@ gulp
 ```
 
 This will:
+
 - Compile all assets to the `temp/` folder
 - Start BrowserSync server at `http://localhost:3000`
 - Watch for file changes and auto-reload the browser
@@ -53,12 +54,20 @@ gulp build
 ```
 
 This will:
+
 - Compile and minify CSS/JavaScript
 - Optimize images (JPEG/PNG compression)
 - Output production-ready files to the `build/` folder
 - Remove sourcemaps and comments
 
 ### Code Quality
+
+**All-in-One Commands:**
+
+```sh
+npm run check            # Run all checks (lint + format)
+npm run fix              # Auto-fix everything (lint + format)
+```
 
 **Linting:**
 
@@ -79,6 +88,14 @@ npm run format:fix       # Auto-fix formatting issues
 ```
 
 Prettier is fully integrated with ESLint and Stylelint - no conflicts!
+
+### Bundle Analysis
+
+```sh
+npm run analyze          # Analyze JavaScript bundle size
+```
+
+Shows minified bundle size in KB for optimization monitoring.
 
 ### Additional Commands
 
@@ -115,11 +132,11 @@ layout-ui/
 │   │   └── images/
 │   ├── blocks/                   # Large structural sections
 │   │   ├── common/               # Page-specific blocks
-│   │   └── general/              # Reusable blocks (header, footer, etc.)
+│   │   └── general/              # General blocks (header, footer, etc.)
 │   ├── components/               # Small reusable UI elements
-│   │   ├── common/               # Unique components (logo, copyright)
-│   │   └── general/              # Reusable components (button, menu)
-│   ├── layouts/                  # Nunjucks layout templates
+│   │   ├── common/               # Project-specific components (logo, copyright)
+│   │   └── general/              # General components (button, menu)
+│   ├── layouts/                  # Layout templates
 │   │   ├── default.njk           # Main layout
 │   │   └── grid.njk              # Grid layout variant
 │   ├── pages/                    # Page templates (each becomes .html)
@@ -129,7 +146,7 @@ layout-ui/
 │   │   ├── core/                 # Variables, mixins, globals
 │   │   └── index.scss            # Main SCSS entry point
 │   └── js/                       # JavaScript
-│       ├── core/                 # Core initialization
+│       ├── utils/                # Utility functions
 │       └── index.js              # Main JS entry point
 ├── temp/                         # Development build output (auto-generated)
 ├── build/                        # Production build output (auto-generated)
@@ -153,6 +170,7 @@ component-name/
 ### Available Components
 
 **General Components** (reusable):
+
 - `button` - Button with variants (primary, secondary, outline) and sizes
 - `textarea` - Textarea with states (default, error, disabled)
 - `breadcrumbs` - Navigation breadcrumbs
@@ -162,11 +180,13 @@ component-name/
 - `navigation-top`, `navigation-side`, `navigation-mobile` - Navigation elements
 
 **Common Components** (unique):
+
 - `logo` - Site logo
 - `copyright` - Copyright text
 - `dev`, `stack` - Development info components
 
 **Blocks** (structural sections):
+
 - `header`, `footer` - Page header and footer
 - `section`, `sidebar` - Content containers
 - `hero` - Hero section
@@ -193,47 +213,74 @@ component-name/
 
 ### Included Libraries
 
-- **[Swiper](https://swiperjs.com/)** - Modern mobile-friendly slider
-- **[GSAP](https://gsap.com/)** - Professional-grade animation library
-- **[Fancyapps UI](https://fancyapps.com/)** - Lightbox and gallery component
+**Active:**
+
 - **[Lozad.js](https://apoorv.pro/lozad.js/)** - Lazy loading for images (use `.lazy` class)
-- **[Inputmask](https://robinherbots.github.io/Inputmask/)** - Input field masking
+
+**Available (CSS imported, not yet implemented):**
+
+- **[Swiper](https://swiperjs.com/)** - Modern mobile-friendly slider
+- **[Fancyapps UI](https://fancyapps.com/)** - Lightbox and gallery component
 - **[Nice Select 2](https://bluzky.github.io/nice-select2/)** - Custom select dropdown styling
+- **[imask](https://imask.js.org/)** - Input field masking
+
+> **Note:** These libraries are installed and ready to use. See `TODO.md` for implementation recommendations or removal instructions.
 
 ## Development Workflow
 
 ### Creating a New Component
 
 1. Create component folder in `src/components/general/` or `src/blocks/general/`
-2. Add `.njk`, `.scss`, and `.js` files (if needed)
-3. Import styles in `src/scss/index.scss`:
-   ```scss
-   @use "../components/general/your-component/your-component";
-   ```
-4. If component needs initialization, export function and import in `src/js/core/init.js`:
-   ```javascript
-   import { initYourComponent } from "../../components/general/your-component/your-component.js";
 
-   document.addEventListener("DOMContentLoaded", () => {
-       initYourComponent();
-   });
-   ```
-5. Include in templates:
-   ```nunjucks
-   {% include "components/general/your-component/your-component.njk" %}
-   ```
+2. Create `.njk` file as a **macro** (no documentation comments inside):
+
+    ```nunjucks
+    {% macro render(text="", variant="primary", size="md") %}
+        <div class="your-component {{ variant }} {{ size }}">
+            {{ text }}
+        </div>
+    {% endmacro %}
+    ```
+
+3. Import styles in `src/scss/index.scss`:
+
+    ```scss
+    @use "../components/general/your-component/your-component";
+    ```
+
+4. If component needs initialization, export function and import in `src/js/index.js`:
+
+    ```javascript
+    import { initYourComponent } from "../../components/general/your-component/your-component.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        initYourComponent();
+    });
+    ```
+
+5. Use macro in templates (import at the **top** of the file):
+
+    ```nunjucks
+    {% from "components/general/your-component/your-component.njk" import render as yourComponent %}
+
+    {{ yourComponent(text="Hello", variant="primary") }}
+    ```
+
+> **See** `CLAUDE.md` for detailed component development guidelines.
 
 ### Creating a New Page
 
 1. Create `.njk` file in `src/pages/`
 2. Extend a layout:
-   ```nunjucks
-   {% extends "layouts/default.njk" %}
 
-   {% block content %}
-       <!-- Your page content -->
-   {% endblock %}
-   ```
+    ```nunjucks
+    {% extends "layouts/default.njk" %}
+
+    {% block content %}
+        <!-- Your page content -->
+    {% endblock %}
+    ```
+
 3. The page will be compiled to HTML in the output folder
 
 ## Recommended Tools
@@ -243,10 +290,7 @@ component-name/
 ## Browser Support
 
 Configured via `browserslist` in `package.json`:
+
 - \> 1% market share
 - Last 10 versions of major browsers
 - Excludes dead browsers
-
-## License
-
-This project is available for use under your preferred license.

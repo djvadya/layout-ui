@@ -31,61 +31,73 @@ const paths = {
     componentJS: ["src/blocks/**/*.js", "src/components/**/*.js", "src/js/core/*.js"],
     assets: "src/assets/**/*",
     devDist: "temp",
-    prodDist: "build",
+    prodDist: "build"
 };
 
-// Очистка папок temp/ и build/
+// Clean temp/ and build/ directories
 export const clean = (done) => {
     deleteSync([paths.devDist, paths.prodDist]);
     done();
 };
 
-// HTML для разработки (пишет в temp/)
+// HTML compilation for development (outputs to temp/)
 export const html = () =>
     gulp
         .src(paths.html)
-        .pipe(nunjucksRender({ path: [paths.templates] }))
+        .pipe(
+            nunjucksRender({ path: [paths.templates] }).on("error", (err) => {
+                console.error("Nunjucks error:", err.message);
+            })
+        )
         .pipe(gulp.dest(paths.devDist))
         .pipe(bs.stream());
 
-// HTML для продакшн (пишет в build/)
+// HTML compilation for production (outputs to build/)
 export const htmlProd = () =>
     gulp
         .src(paths.html)
-        .pipe(nunjucksRender({ path: [paths.templates] }))
+        .pipe(
+            nunjucksRender({ path: [paths.templates] }).on("error", (err) => {
+                console.error("Nunjucks error:", err.message);
+                throw err;
+            })
+        )
         .pipe(replace("bundle.css", "bundle.min.css"))
         .pipe(replace("bundle.js", "bundle.min.js"))
         .pipe(gulp.dest(paths.prodDist));
 
-// Стили для разработки (пишет в temp/css/bundle.css с sourcemaps)
+// Styles compilation for development (outputs to temp/css/bundle.css with sourcemaps)
 export const styles = () =>
     gulp
         .src(paths.styles)
         .pipe(sourcemaps.init())
         .pipe(
             sassCompiler({
-                includePaths: ["src/blocks", "src/components", "src/scss/core"],
-            }).on("error", sassCompiler.logError),
+                includePaths: ["src/blocks", "src/components", "src/scss/core"]
+            }).on("error", sassCompiler.logError)
         )
         .pipe(rename("bundle.css"))
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest(`${paths.devDist}/css`))
         .pipe(bs.stream());
 
-// Стили для продакшн (пишет в build/css/bundle.css без sourcemaps)
+// Styles compilation for production (outputs to build/css/bundle.min.css without sourcemaps)
 export const stylesProd = () =>
     gulp
         .src(paths.styles)
         .pipe(
             sassCompiler({
-                includePaths: ["src/blocks", "src/components", "src/scss/core"],
-            }).on("error", sassCompiler.logError),
+                includePaths: ["src/blocks", "src/components", "src/scss/core"]
+            }).on("error", (err) => {
+                console.error("SCSS compilation error:", err.message);
+                throw err;
+            })
         )
         .pipe(postcss([autoprefixer(), cssnano({ preset: "default" })]))
         .pipe(rename("bundle.min.css"))
         .pipe(gulp.dest(`${paths.prodDist}/css`));
 
-// Скрипты для разработки (пишет в temp/js/bundle.js с sourcemaps, без минификации)
+// Scripts compilation for development (outputs to temp/js/bundle.js with sourcemaps, no minification)
 export const scripts = () =>
     gulp
         .src(paths.js, { allowEmpty: true })
@@ -97,17 +109,16 @@ export const scripts = () =>
                 format: "iife",
                 platform: "browser",
                 minify: false,
-                sourcemap: true,
-            }).on("error", function (err) {
+                sourcemap: true
+            }).on("error", (err) => {
                 console.error("esbuild error:", err);
-                this.emit("end");
-            }),
+            })
         )
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(`${paths.devDist}/js`))
         .pipe(bs.stream());
 
-// Скрипты для продакшн (пишет в build/js/bundle.js без sourcemaps, с минификацией)
+// Scripts compilation for production (outputs to build/js/bundle.min.js without sourcemaps, minified)
 export const scriptsProd = () =>
     gulp
         .src(paths.js, { allowEmpty: true })
@@ -119,45 +130,43 @@ export const scriptsProd = () =>
                 platform: "browser",
                 minify: true,
                 sourcemap: false,
-                legalComments: "none",
-            }).on("error", function (err) {
+                legalComments: "none"
+            }).on("error", (err) => {
                 console.error("esbuild error:", err);
-                this.emit("end");
-            }),
+                throw err;
+            })
         )
         .pipe(gulp.dest(`${paths.prodDist}/js`));
 
-// Копирование ассетов для разработки
+// Copy assets for development
 export const assets = () => gulp.src(paths.assets, { encoding: false }).pipe(gulp.dest(`${paths.devDist}/assets`));
 
-// Копирование ассетов для продакшн
+// Copy and optimize assets for production
 export const assetsProd = () =>
     gulp
         .src(paths.assets, { encoding: false })
         .pipe(
-            imagemin([
-                mozjpeg({ quality: 75, progressive: true }),
-                pngquant({ quality: [0.6, 0.8] }),
-            ]),
+            imagemin([mozjpeg({ quality: 75, progressive: true }), pngquant({ quality: [0.6, 0.8] })]).on(
+                "error",
+                (err) => {
+                    console.error("Image optimization error:", err.message);
+                    throw err;
+                }
+            )
         )
         .pipe(gulp.dest(`${paths.prodDist}/assets`));
 
-// Ручное сжатие изображений в src (заменяет оригиналы)
+// Manual compression of source images (replaces originals!)
 export const compressImages = () => {
-    console.log("\n⚠️  ВНИМАНИЕ: Эта команда заменит оригинальные изображения сжатыми версиями!\n");
+    console.log("\nWARNING: This command will replace original images with compressed versions!\n");
 
     return gulp
         .src("src/assets/images/**/*.{jpg,jpeg,png}", { encoding: false })
-        .pipe(
-            imagemin([
-                mozjpeg({ quality: 85, progressive: true }),
-                pngquant({ quality: [0.7, 0.9] }),
-            ]),
-        )
+        .pipe(imagemin([mozjpeg({ quality: 85, progressive: true }), pngquant({ quality: [0.7, 0.9] })]))
         .pipe(gulp.dest("src/assets/images"));
 };
 
-// Анализ размера JS бандла
+// Analyze JavaScript bundle size
 export const analyzeBundle = () =>
     gulp
         .src(paths.js, { allowEmpty: true })
@@ -168,28 +177,30 @@ export const analyzeBundle = () =>
                 format: "iife",
                 platform: "browser",
                 minify: true,
-                metafile: true,
-            }).on("error", function (err) {
+                metafile: true
+            }).on("error", (err) => {
                 console.error("esbuild error:", err);
-                this.emit("end");
-            }),
+            })
         )
         .on("data", (file) => {
-            const sizeBytes = file.contents.length;
-            const sizeKB = (sizeBytes / 1024).toFixed(2);
-            console.log(`\n📦 Bundle size: ${sizeKB} KB (${sizeBytes} bytes)\n`);
+            // Show size only for JS bundle, skip metafile
+            if (file.path.endsWith(".js")) {
+                const sizeBytes = file.contents.length;
+                const sizeKB = (sizeBytes / 1024).toFixed(2);
+                console.log(`\nBundle size: ${sizeKB} KB (${sizeBytes} bytes)\n`);
+            }
         });
 
-// Валидация HTML через W3C валидатор
+// HTML validation via W3C validator
 export const validateHtml = async () => {
     const htmlFiles = await fg(`${paths.prodDist}/**/*.html`);
 
     if (htmlFiles.length === 0) {
-        console.log("\n⚠️  HTML файлы не найдены в папке build/. Запустите 'npm run build' сначала.\n");
+        console.log("\nNo HTML files found in build/ directory. Run 'npm run build' first.\n");
         return;
     }
 
-    console.log(`\n🔍 Проверка ${htmlFiles.length} HTML файл(ов)...\n`);
+    console.log(`\nValidating ${htmlFiles.length} HTML file(s)...\n`);
 
     let totalErrors = 0;
 
@@ -200,41 +211,41 @@ export const validateHtml = async () => {
         try {
             const result = await htmlValidator({
                 data: html,
-                format: "json",
+                format: "json"
             });
 
             const messages = result.messages || [];
             const errors = messages.filter((msg) => msg.type === "error");
 
             if (errors.length > 0) {
-                console.log(`\n📄 ${fileName}`);
-                console.log(`  ❌ Ошибок: ${errors.length}`);
+                console.log(`\n${fileName}`);
+                console.log(`  Errors: ${errors.length}`);
                 errors.forEach((err) => {
-                    console.log(`     Строка ${err.lastLine}: ${err.message}`);
+                    console.log(`     Line ${err.lastLine}: ${err.message}`);
                 });
                 totalErrors += errors.length;
             } else {
-                console.log(`✅ ${fileName} - валидация пройдена`);
+                console.log(`[PASS] ${fileName}`);
             }
         } catch (error) {
-            console.error(`\n❌ Ошибка валидации ${fileName}:`, error.message);
+            console.error(`\n[ERROR] Validation failed for ${fileName}:`, error.message);
         }
     }
 
-    console.log(`\n📊 Итого: ${totalErrors} ошибок\n`);
+    console.log(`\nTotal: ${totalErrors} error(s)\n`);
 };
 
-// Сервер для разработки (использует temp/)
+// Development server (uses temp/)
 export const serve = () => {
     bs.init({
         server: {
-            baseDir: paths.devDist,
+            baseDir: paths.devDist
         },
         port: 3000,
         notify: false,
         open: true,
         cors: true,
-        reloadOnRestart: true,
+        reloadOnRestart: true
     });
 
     gulp.watch(["src/**/*.njk"], html);
@@ -243,11 +254,11 @@ export const serve = () => {
     gulp.watch(["src/assets/**/*.*"], assets);
 };
 
-// Таск для разработки
+// Development task
 export const dev = gulp.series(clean, gulp.parallel(html, styles, scripts, assets));
 
-// Таск для сборки
+// Production build task
 export const build = gulp.series(clean, gulp.parallel(htmlProd, stylesProd, scriptsProd, assetsProd));
 
-// Стандартный таск
+// Default task
 export default gulp.series(dev, serve);
