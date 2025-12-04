@@ -1,3 +1,5 @@
+{% from "components/general/button/button.njk" import render as button %}
+
 <section class="hero section">
     <div class="container">
         <div class="block">
@@ -13,13 +15,7 @@
                 class: "text center"
             } %}
             {% include "components/general/text/text.njk" %}
-            {% set button = {
-                text: "Get Started",
-                href: "docs.html",
-                class: "button",
-                type: "link"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Get Started", href="docs.html", class="button", type="link") }}
             {% include "components/common/stack/stack.njk" %}
         </div>
     </div>

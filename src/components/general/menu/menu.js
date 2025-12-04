@@ -25,7 +25,7 @@ export function initMenu() {
     });
 
     document.addEventListener("click", (event) => {
-        if ([...menuToggles].some((btn) => btn.contains(event.target)) || menuDropdown.contains(event.target)) return;
+        if ([...menuToggles].some((btn) => btn?.contains(event.target)) || menuDropdown?.contains(event.target)) return;
         closeDropdown();
     });
 

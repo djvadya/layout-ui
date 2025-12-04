@@ -1,10 +1,12 @@
-{% set items = breadcrumbs.items | default([]) %}
-{% set separator = breadcrumbs.separator | default("chevron") %}
-{% set size = breadcrumbs.size | default("md") %}
-{% set ariaLabel = breadcrumbs.ariaLabel | default("Breadcrumbs") %}
-
+{% macro render(
+    items=[],
+    separator="chevron",
+    size="md",
+    ariaLabel="Breadcrumbs",
+    class=""
+) %}
 {% set breadcrumbsClasses = "breadcrumbs " + size %}
-{% if breadcrumbs.class %}{% set breadcrumbsClasses = breadcrumbsClasses + " " + breadcrumbs.class %}{% endif %}
+{% if class %}{% set breadcrumbsClasses = breadcrumbsClasses + " " + class %}{% endif %}
 
 <nav class="{{ breadcrumbsClasses }}" aria-label="{{ ariaLabel }}">
     <div class="container">
@@ -42,3 +44,4 @@
         </ul>
     </div>
 </nav>
+{% endmacro %}

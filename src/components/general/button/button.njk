@@ -1,58 +1,72 @@
-{% set variant = button.variant | default("primary") %}
-{% set size = button.size | default("md") %}
-{% set shape = button.shape | default("default") %}
-
+{% macro render(
+    text="",
+    variant="primary",
+    size="md",
+    shape="default",
+    type="button",
+    href="#",
+    target="",
+    rel="",
+    id="",
+    name="",
+    value="",
+    disabled=false,
+    underline="",
+    class="",
+    data={},
+    aria={}
+) %}
 {% set buttonClasses = "button " + variant %}
 {% if variant != "link" %}
     {% set buttonClasses = buttonClasses + " " + size + " " + shape %}
 {% endif %}
-{% if button.underline %}{% set buttonClasses = buttonClasses + " underline-" + button.underline %}{% endif %}
-{% if button.class %}{% set buttonClasses = buttonClasses + " " + button.class %}{% endif %}
+{% if underline %}{% set buttonClasses = buttonClasses + " underline-" + underline %}{% endif %}
+{% if class %}{% set buttonClasses = buttonClasses + " " + class %}{% endif %}
 
-{% if button.type == "link" %}
+{% if type == "link" %}
     <a
-        class="{{ buttonClasses }}"
-        {% if button.id %}id="{{ button.id }}"{% endif %}
-        {% if button.href %}href="{{ button.href }}"{% else %}href="#"{% endif %}
-        {% if button.target %}target="{{ button.target }}"{% endif %}
-        {% if button.rel %}rel="{{ button.rel }}"{% endif %}
-        {% if button.data %}
-            {% for key, val in button.data %}
+        class="{{ buttonClasses }}{% if disabled %} disabled{% endif %}"
+        {% if id %}id="{{ id }}"{% endif %}
+        href="{{ href }}"
+        {% if target %}target="{{ target }}"{% endif %}
+        {% if rel %}rel="{{ rel }}"{% endif %}
+        {% if data %}
+            {% for key, val in data %}
                 data-{{ key | replace("_", "-") }}="{{ val }}"
             {% endfor %}
         {% endif %}
-        {% if button.aria %}
-            {% for key, val in button.aria %}
+        {% if aria %}
+            {% for key, val in aria %}
                 aria-{{ key | replace("_", "-") }}="{{ val }}"
             {% endfor %}
         {% endif %}
-        {% if button.disabled %}class="{{ buttonClasses }} disabled"{% endif %}
     >
-        {% if button.text %}
-            <span>{{ button.text }}</span>
+        {% if text %}
+            <span>{{ text }}</span>
         {% endif %}
     </a>
 {% else %}
     <button
         class="{{ buttonClasses }}"
-        {% if button.id %}id="{{ button.id }}"{% endif %}
-        {% if button.type %}type="{{ button.type }}"{% else %}type="button"{% endif %}
-        {% if button.name %}name="{{ button.name }}"{% endif %}
-        {% if button.value %}value="{{ button.value }}"{% endif %}
-        {% if button.data %}
-            {% for key, val in button.data %}
+        {% if id %}id="{{ id }}"{% endif %}
+        type="{{ type }}"
+        {% if name %}name="{{ name }}"{% endif %}
+        {% if value %}value="{{ value }}"{% endif %}
+        {% if data %}
+            {% for key, val in data %}
                 data-{{ key | replace("_", "-") }}="{{ val }}"
             {% endfor %}
         {% endif %}
-        {% if button.aria %}
-            {% for key, val in button.aria %}
+        {% if aria %}
+            {% for key, val in aria %}
                 aria-{{ key | replace("_", "-") }}="{{ val }}"
             {% endfor %}
         {% endif %}
-        {% if button.disabled %}disabled{% endif %}
+        {% if disabled %}disabled{% endif %}
     >
-        {% if button.text %}
-            <span>{{ button.text }}</span>
+        {% if text %}
+            <span>{{ text }}</span>
         {% endif %}
     </button>
 {% endif %}
+{% endmacro %}

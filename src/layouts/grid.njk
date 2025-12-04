@@ -1,21 +1,39 @@
+{% from "components/general/breadcrumbs/breadcrumbs.njk" import render as breadcrumbsComponent %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% include "blocks/general/meta/meta.njk" %}
-        <link rel="stylesheet" href="../css/bundle.css"/>
+        {% block meta %}
+            {% include "blocks/general/meta/meta.njk" %}
+        {% endblock %}
+
+        {% block styles %}
+            <link rel="stylesheet" href="../css/bundle.css" />
+        {% endblock %}
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         <div class="site">
-            {% include "blocks/general/header/header.njk" %}
-            <main class="main">
-                {% if not meta.is_home %}
-                    {% if not meta.is_404 %}
-                        {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {% block header %}
+                {% include "blocks/general/header/header.njk" %}
+            {% endblock %}
+
+            <main class="main {% block main_class %}{% endblock %}">
+                {% block breadcrumbs %}
+                    {% if not meta.is_home %}
+                        {% if not meta.is_404 %}
+                            {{ breadcrumbsComponent(items=breadcrumbs.items) }}
+                        {% endif %}
                     {% endif %}
-                    {% if title %}
-                        {% include "components/general/heading/heading.njk" %}
+                {% endblock %}
+
+                {% block page_heading %}
+                    {% if not meta.is_home %}
+                        {% if title %}
+                            {% include "components/general/heading/heading.njk" %}
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                {% endblock %}
+
                 <div class="layout">
                     <div class="container">
                         <div class="grid">
@@ -31,9 +49,18 @@
                     </div>
                 </div>
             </main>
-            {% include "components/general/menu/menu.njk" %}
-            {% include "blocks/general/footer/footer.njk" %}
+
+            {% block menu %}
+                {% include "components/general/menu/menu.njk" %}
+            {% endblock %}
+
+            {% block footer %}
+                {% include "blocks/general/footer/footer.njk" %}
+            {% endblock %}
         </div>
-        <script src="../js/bundle.js"></script>
+
+        {% block scripts %}
+            <script src="../js/bundle.js"></script>
+        {% endblock %}
     </body>
 </html>

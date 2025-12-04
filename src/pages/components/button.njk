@@ -1,3 +1,5 @@
+{% from "components/general/button/button.njk" import render as button %}
+
 {% set meta = {
     title: "Button",
     sidebar: "components"
@@ -16,39 +18,16 @@
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
+
     {# Variants #}
     <section class="example section">
         <h2 class="title">Button Variants</h2>
         <div class="row">
-            {% set button = {
-                text: "Primary",
-                variant: "primary"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Secondary",
-                variant: "secondary"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Outline",
-                variant: "outline"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Dashed",
-                variant: "dashed"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Ghost",
-                variant: "ghost"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Primary", variant="primary") }}
+            {{ button(text="Secondary", variant="secondary") }}
+            {{ button(text="Outline", variant="outline") }}
+            {{ button(text="Dashed", variant="dashed") }}
+            {{ button(text="Ghost", variant="ghost") }}
         </div>
     </section>
 
@@ -57,26 +36,9 @@
         <h2>Button Sizes</h2>
 
         <div class="row">
-            {% set button = {
-                text: "Small",
-                variant: "primary",
-                size: "sm"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Medium",
-                variant: "primary",
-                size: "md"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Large",
-                variant: "primary",
-                size: "lg"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Small", variant="primary", size="sm") }}
+            {{ button(text="Medium", variant="primary", size="md") }}
+            {{ button(text="Large", variant="primary", size="lg") }}
         </div>
     </section>
 
@@ -85,19 +47,8 @@
         <h2>Button Shapes</h2>
 
         <div class="row">
-            {% set button = {
-                text: "Default",
-                variant: "primary",
-                shape: "default"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Rounded",
-                variant: "primary",
-                shape: "rounded"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Default", variant="primary", shape="default") }}
+            {{ button(text="Rounded", variant="primary", shape="rounded") }}
         </div>
     </section>
 
@@ -106,40 +57,11 @@
         <h2>Disabled State</h2>
 
         <div class="row">
-            {% set button = {
-                text: "Disabled Primary",
-                variant: "primary",
-                disabled: true
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Disabled Secondary",
-                variant: "secondary",
-                disabled: true
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Disabled Outline",
-                variant: "outline",
-                disabled: true
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Disabled Dashed",
-                variant: "dashed",
-                disabled: true
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Disabled Ghost",
-                variant: "ghost",
-                disabled: true
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Disabled Primary", variant="primary", disabled=true) }}
+            {{ button(text="Disabled Secondary", variant="secondary", disabled=true) }}
+            {{ button(text="Disabled Outline", variant="outline", disabled=true) }}
+            {{ button(text="Disabled Dashed", variant="dashed", disabled=true) }}
+            {{ button(text="Disabled Ghost", variant="ghost", disabled=true) }}
         </div>
     </section>
 
@@ -148,23 +70,8 @@
         <h2>Button as Link</h2>
 
         <div class="row">
-            {% set button = {
-                text: "Link Button",
-                variant: "primary",
-                type: "link",
-                href: "#"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "External Link",
-                variant: "secondary",
-                type: "link",
-                href: "https://example.com",
-                target: "_blank",
-                rel: "noopener noreferrer"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Link Button", variant="primary", type="link", href="#") }}
+            {{ button(text="External Link", variant="secondary", type="link", href="https://example.com", target="_blank", rel="noopener noreferrer") }}
         </div>
     </section>
 
@@ -173,31 +80,9 @@
         <h2>Link</h2>
 
         <div class="row">
-            {% set button = {
-                text: "Link",
-                variant: "link",
-                type: "link",
-                href: "#"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Link",
-                variant: "link",
-                type: "link",
-                href: "#",
-                underline: "solid"
-            } %}
-            {% include "components/general/button/button.njk" %}
-
-            {% set button = {
-                text: "Link",
-                variant: "link",
-                type: "link",
-                href: "#",
-                underline: "dashed"
-            } %}
-            {% include "components/general/button/button.njk" %}
+            {{ button(text="Link", variant="link", type="link", href="#") }}
+            {{ button(text="Link", variant="link", type="link", href="#", underline="solid") }}
+            {{ button(text="Link", variant="link", type="link", href="#", underline="dashed") }}
         </div>
     </section>
 
@@ -206,33 +91,44 @@
         <h2>Usage</h2>
 
         {% set code = {
-            title: "All Available Options",
+            title: "Import and Basic Usage",
             language: "njk",
-            content: '{% set button = {
-    text: "Click me",
-    variant: "primary|secondary|outline|dashed|ghost|link",
-    size: "sm|md|lg",
-    shape: "default|rounded",
-    type: "button|submit|reset|link",
-    href: "#" (for link type),
-    target: "_blank" (for link type),
-    rel: "noopener noreferrer" (for link type),
-    disabled: true|false,
-    underline: "solid|dashed" (for link variant),
-    id: "button-id",
-    name: "button-name",
-    value: "button-value",
-    class: "additional-classes",
-    data: {
-        "toggle": "modal",
-        "target": "#myModal"
-    },
-    aria: {
-        "label": "Close dialog",
-        "expanded": "false"
-    }
-} %}
-{% include "components/general/button/button.njk" %}'
+            content: '{% from "components/general/button/button.njk" import render as button %}
+
+{# Simple button #}
+{{ button(text="Click me") }}
+
+{# Button with options #}
+{{ button(
+    text="Submit Form",
+    variant="primary",
+    size="lg",
+    type="submit"
+) }}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+
+        {% set code = {
+            title: "All Available Parameters",
+            language: "njk",
+            content: '{{ button(
+    text="Click me",
+    variant="primary|secondary|outline|dashed|ghost|link",
+    size="sm|md|lg",
+    shape="default|rounded",
+    type="button|submit|reset|link",
+    href="#",
+    target="_blank",
+    rel="noopener noreferrer",
+    disabled=true,
+    underline="solid|dashed",
+    id="button-id",
+    name="button-name",
+    value="button-value",
+    class="additional-classes",
+    data={toggle: "modal", target: "#myModal"},
+    aria={label: "Close dialog", expanded: "false"}
+) }}'
         } %}
         {% include "components/general/code/code.njk" %}
     </section>

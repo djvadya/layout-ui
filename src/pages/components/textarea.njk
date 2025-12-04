@@ -1,3 +1,5 @@
+{% from "components/general/textarea/textarea.njk" import render as textarea %}
+
 {% set meta = {
     title: "Textarea",
     sidebar: "components"
@@ -16,31 +18,15 @@
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
+
     {# Sizes #}
     <section class="example section">
         <h2>Textarea Sizes</h2>
 
         <div class="block">
-            {% set textarea = {
-                placeholder: "Small textarea...",
-                size: "sm",
-                rows: 3
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                placeholder: "Medium textarea (default)...",
-                size: "md",
-                rows: 4
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                placeholder: "Large textarea...",
-                size: "lg",
-                rows: 5
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
+            {{ textarea(placeholder="Small textarea...", size="sm", rows=3) }}
+            {{ textarea(placeholder="Medium textarea (default)...", size="md", rows=4) }}
+            {{ textarea(placeholder="Large textarea...", size="lg", rows=5) }}
         </div>
     </section>
 
@@ -49,32 +35,10 @@
         <h2>Textarea States</h2>
 
         <div class="block">
-            {% set textarea = {
-                placeholder: "Default textarea...",
-                rows: 4
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                value: "Disabled textarea - cannot be edited",
-                disabled: true,
-                rows: 4
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                value: "Readonly textarea - cannot be edited",
-                readonly: true,
-                rows: 4
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                placeholder: "Error state textarea...",
-                error: true,
-                rows: 4
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
+            {{ textarea(placeholder="Default textarea...", rows=4) }}
+            {{ textarea(value="Disabled textarea - cannot be edited", disabled=true, rows=4) }}
+            {{ textarea(value="Readonly textarea - cannot be edited", readonly=true, rows=4) }}
+            {{ textarea(placeholder="Error state textarea...", error=true, rows=4) }}
         </div>
     </section>
 
@@ -83,23 +47,9 @@
         <h2>Different Row Heights</h2>
 
         <div class="block">
-            {% set textarea = {
-                placeholder: "3 rows...",
-                rows: 3
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                placeholder: "6 rows...",
-                rows: 6
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
-
-            {% set textarea = {
-                placeholder: "10 rows...",
-                rows: 10
-            } %}
-            {% include "components/general/textarea/textarea.njk" %}
+            {{ textarea(placeholder="3 rows...", rows=3) }}
+            {{ textarea(placeholder="6 rows...", rows=6) }}
+            {{ textarea(placeholder="10 rows...", rows=10) }}
         </div>
     </section>
 
@@ -108,31 +58,42 @@
         <h2>Usage</h2>
 
         {% set code = {
-            title: "All Available Options",
+            title: "Import and Basic Usage",
             language: "njk",
-            content: '{% set textarea = {
-  name: "message",
-  placeholder: "Enter your message...",
-  size: "sm|md|lg",
-  rows: 4,
-  value: "Default value",
-  disabled: true|false,
-  readonly: true|false,
-  required: true|false,
-  error: true|false,
-  maxlength: 500,
-  id: "textarea-id",
-  class: "additional-classes",
-  data: {
-    "validate": "true",
-    "target": "#form"
-  },
-  aria: {
-    "label": "Message input",
-    "describedby": "message-help"
-  }
-} %}
-{% include "components/general/textarea/textarea.njk" %}'
+            content: '{% from "components/general/textarea/textarea.njk" import render as textarea %}
+
+{# Simple textarea #}
+{{ textarea(name="message", placeholder="Enter your message...") }}
+
+{# Textarea with options #}
+{{ textarea(
+    name="description",
+    placeholder="Enter description...",
+    size="lg",
+    rows=6
+) }}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+
+        {% set code = {
+            title: "All Available Parameters",
+            language: "njk",
+            content: '{{ textarea(
+    name="message",
+    placeholder="Enter your message...",
+    size="sm|md|lg",
+    rows=4,
+    value="Default value",
+    disabled=true,
+    readonly=true,
+    required=true,
+    error=true,
+    maxlength=500,
+    id="textarea-id",
+    class="additional-classes",
+    data={validate: "true", target: "#form"},
+    aria={label: "Message input", describedby: "message-help"}
+) }}'
         } %}
         {% include "components/general/code/code.njk" %}
     </section>

@@ -157,6 +157,29 @@ export const compressImages = () => {
         .pipe(gulp.dest("src/assets/images"));
 };
 
+// Анализ размера JS бандла
+export const analyzeBundle = () =>
+    gulp
+        .src(paths.js, { allowEmpty: true })
+        .pipe(
+            esbuild({
+                outfile: "bundle.min.js",
+                bundle: true,
+                format: "iife",
+                platform: "browser",
+                minify: true,
+                metafile: true,
+            }).on("error", function (err) {
+                console.error("esbuild error:", err);
+                this.emit("end");
+            }),
+        )
+        .on("data", (file) => {
+            const sizeBytes = file.contents.length;
+            const sizeKB = (sizeBytes / 1024).toFixed(2);
+            console.log(`\n📦 Bundle size: ${sizeKB} KB (${sizeBytes} bytes)\n`);
+        });
+
 // Валидация HTML через W3C валидатор
 export const validateHtml = async () => {
     const htmlFiles = await fg(`${paths.prodDist}/**/*.html`);

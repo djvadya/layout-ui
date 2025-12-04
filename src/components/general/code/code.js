@@ -3,9 +3,8 @@ export function initCode() {
 
     copyButtons.forEach((button) => {
         button.addEventListener("click", async function () {
-            const codeBlock = this.closest(".code");
-            const codeElement = codeBlock.querySelector("code");
-            const codeText = codeElement.textContent;
+            const codeText = this.closest(".code")?.querySelector("code")?.textContent;
+            if (!codeText) return;
 
             try {
                 await navigator.clipboard.writeText(codeText);

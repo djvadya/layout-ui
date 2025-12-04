@@ -1,3 +1,5 @@
+{% from "components/general/breadcrumbs/breadcrumbs.njk" import render as breadcrumbsComponent %}
+
 {% set meta = {
     title: "Breadcrumbs",
     sidebar: "components"
@@ -16,49 +18,34 @@
 } %}
 {% extends "layouts/grid.njk" %}
 {% block content %}
+
     {# Variants #}
     <section class="example section">
         <h2>Variants</h2>
         <div class="block">
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Category", url: "/category" },
-                    { title: "Current page" }
-                ],
-                separator: "chevron"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Category", url: "/category"},
+                {title: "Current page"}
+            ], separator="chevron") }}
 
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Category", url: "/category" },
-                    { title: "Current page" }
-                ],
-                separator: "slash"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Category", url: "/category"},
+                {title: "Current page"}
+            ], separator="slash") }}
 
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Category", url: "/category" },
-                    { title: "Current page" }
-                ],
-                separator: "dot"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Category", url: "/category"},
+                {title: "Current page"}
+            ], separator="dot") }}
 
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Category", url: "/category" },
-                    { title: "Current page" }
-                ],
-                separator: "arrow"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Category", url: "/category"},
+                {title: "Current page"}
+            ], separator="arrow") }}
         </div>
     </section>
 
@@ -67,35 +54,23 @@
         <h2>Sizes</h2>
 
         <div class="block">
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Products", url: "/products" },
-                    { title: "Current Page" }
-                ],
-                size: "sm"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Products", url: "/products"},
+                {title: "Current Page"}
+            ], size="sm") }}
 
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Products", url: "/products" },
-                    { title: "Current Page" }
-                ],
-                size: "md"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Products", url: "/products"},
+                {title: "Current Page"}
+            ], size="md") }}
 
-            {% set breadcrumbs = {
-                items: [
-                    { title: "Home", url: "/" },
-                    { title: "Products", url: "/products" },
-                    { title: "Current Page" }
-                ],
-                size: "lg"
-            } %}
-            {% include "components/general/breadcrumbs/breadcrumbs.njk" %}
+            {{ breadcrumbsComponent(items=[
+                {title: "Home", url: "/"},
+                {title: "Products", url: "/products"},
+                {title: "Current Page"}
+            ], size="lg") }}
         </div>
     </section>
 
@@ -104,20 +79,44 @@
         <h2>Usage</h2>
 
         {% set code = {
-            title: "All Available Options",
+            title: "Import and Basic Usage",
             language: "njk",
-            content: '{% set breadcrumbs = {
-    items: [
-        { title: "Home", url: "/" },
-        { title: "Category", url: "/category" },
-        { title: "Current Page" }
+            content: '{% from "components/general/breadcrumbs/breadcrumbs.njk" import render as breadcrumbs %}
+
+{# Simple breadcrumbs #}
+{{ breadcrumbs(items=[
+    {title: "Home", url: "/"},
+    {title: "Category", url: "/category"},
+    {title: "Current Page"}
+]) }}
+
+{# Breadcrumbs with options #}
+{{ breadcrumbs(
+    items=[
+        {title: "Home", url: "/"},
+        {title: "Category", url: "/category"},
+        {title: "Current Page"}
     ],
-    separator: "chevron|slash|dot|arrow",
-    size: "sm|md|lg",
-    class: "custom-class",
-    ariaLabel: "Breadcrumb navigation"
-} %}
-{% include "components/general/breadcrumbs/breadcrumbs.njk" %}'
+    separator="slash",
+    size="lg"
+) }}'
+        } %}
+        {% include "components/general/code/code.njk" %}
+
+        {% set code = {
+            title: "All Available Parameters",
+            language: "njk",
+            content: '{{ breadcrumbs(
+    items=[
+        {title: "Home", url: "/"},
+        {title: "Category", url: "/category"},
+        {title: "Current Page"}
+    ],
+    separator="chevron|slash|dot|arrow",
+    size="sm|md|lg",
+    class="custom-class",
+    ariaLabel="Breadcrumb navigation"
+) }}'
         } %}
         {% include "components/general/code/code.njk" %}
     </section>
