@@ -10,6 +10,8 @@
     "lint:js:fix": "eslint . --fix",
     "lint:scss": "stylelint \"src/**/*.scss\"",
     "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix",
+    "format": "prettier --check \"src/**/*.{html,scss,js,json}\"",
+    "format:fix": "prettier --write \"src/**/*.{html,scss,js,json}\"",
     "validate": "gulp validateHtml",
     "compress": "gulp compressImages"
   },
@@ -18,6 +20,7 @@
     "cssnano": "^7.1.2",
     "del": "^8.0.1",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "fast-glob": "^3.3.3",
     "globals": "^16.5.0",
     "gulp": "^5.0.1",
@@ -34,8 +37,10 @@
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
     "postcss": "^8.5.6",
+    "prettier": "^3.7.4",
     "sass": "^1.94.2",
     "stylelint": "^16.26.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recess-order": "^7.4.0",
     "stylelint-config-standard-scss": "^16.0.0",
     "stylelint-order": "^7.0.0"

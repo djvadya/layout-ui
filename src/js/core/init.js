@@ -6,7 +6,7 @@ import { initCode } from "../../components/general/code/code.js";
 const observerLaze = lozad(".lazy", {
     rootMargin: "200px 200px",
     threshold: 0.1,
-    enableAutoReload: true,
+    enableAutoReload: true
 });
 observerLaze.observe();
 

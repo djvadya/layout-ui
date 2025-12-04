@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
+import prettierConfig from "eslint-config-prettier";
 
 export default [
     js.configs.recommended,
@@ -22,19 +23,10 @@ export default [
             "no-var": "error",
             "prefer-arrow-callback": "warn",
             "prefer-template": "warn",
-
-            // Stylistic
-            "indent": ["error", 4, { SwitchCase: 1 }],
-            "quotes": ["error", "double", { avoidEscape: true }],
-            "semi": ["error", "always"],
-            "comma-dangle": ["error", "always-multiline"],
-            "object-curly-spacing": ["error", "always"],
-            "array-bracket-spacing": ["error", "never"],
-            "arrow-spacing": "error",
-            "space-before-blocks": "error",
-            "keyword-spacing": "error",
         },
     },
+    // Prettier config must be last to override conflicting rules
+    prettierConfig,
     {
         ignores: [
             "node_modules/",

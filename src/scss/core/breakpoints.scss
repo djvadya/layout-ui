@@ -14,7 +14,7 @@ $breakpoints: (
     laptop-m: 1439.98px,
     laptop-l: 1639.98px,
     desktop: 1919.98px,
-    desktop-4k: 2559.98px,
+    desktop-4k: 2559.98px
 ) !default;
 
 @mixin mq($breakpoint) {
